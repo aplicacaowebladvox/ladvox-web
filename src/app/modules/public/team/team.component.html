@@ -1,0 +1,43 @@
+<div class="content">
+  <div class="mj-members">
+    @defer {
+      <div
+        class="member"
+        *ngFor="let member of members"
+      >
+        <p-avatar
+          [image]="
+            member.profileImage && member.profileImage.base64
+              ? member.profileImage.base64
+              : undefined
+          "
+          [label]="
+            member.profileImage && member.profileImage.base64 ? undefined : initials(member.name)
+          "
+          shape="circle"
+          size="xlarge"
+          class="fullsize"
+        />
+        <!--
+      <img
+          [src]="member.profileImage.base64"
+          class="mb-3 w-3rem h-3rem"
+        />
+        -->
+        <div class="info">
+          <span
+            ><strong>{{ member.name }}</strong></span
+          >
+          <span
+            ><em>{{ userDisplayPapers(member) }}</em></span
+          >
+        </div>
+      </div>
+    } @placeholder (minimum 1000ms) {
+      <ngx-skeleton-loader
+        count="3"
+        [theme]="{ width: '208px', height: '300px', margin: '12px' }"
+      />
+    }
+  </div>
+</div>

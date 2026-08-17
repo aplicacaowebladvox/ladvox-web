@@ -1,0 +1,55 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Projetos</h1>
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    (keydown.enter)="$event.preventDefault()"
+    [formGroup]="form"
+  >
+    <div class="form-control w-100">
+      <label for="term">Termo</label>
+      <input
+        type="text"
+        id="term"
+        name="term"
+        formControlName="term"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      (click)="clickClean()"
+    >
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      Limpar
+    </button>
+    <button
+      class="primary"
+      (click)="clickFilter()"
+    >
+      <i class="fa-solid fa-filter"></i>
+      Buscar
+    </button>
+  </div>
+</section>
+<section class="actions">
+  <ng-container *hasPermission="'configuracao-sistema.projetos.form.new'">
+    <button
+      class="success"
+      (click)="clickAddNew()"
+    >
+      <i class="fa-solid fa-circle-plus"></i>
+      Novo
+    </button>
+  </ng-container>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="table">
+    <app-action-card-table [config]="editCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="viewCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="removeCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

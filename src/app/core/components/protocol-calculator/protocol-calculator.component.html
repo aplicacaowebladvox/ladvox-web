@@ -1,0 +1,58 @@
+<div *ngIf="result">
+  <h4>Resultados</h4>
+  <div class="results">
+    <div
+      *ngIf="result.finalValues && result.finalValues.length > 0"
+      class="result-container"
+    >
+      <h5>Visão Geral</h5>
+      <div class="result-at-container">
+        <div
+          *ngFor="let answer of result.groups[0].questions[0].answers; index as answerIndex"
+          class="result-at"
+        >
+          <span>{{ answer.answerType.name || answer.answerType.sequence }}</span>
+          <span>{{ getValuePresentation(result.finalValues[answerIndex]) }}</span>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngFor="let group of result.groups">
+      <div
+        *ngIf="group.finalValues"
+        class="result-container"
+      >
+        <h5>{{ group.name }}</h5>
+        <div class="result-at-container">
+          <ng-container *ngIf="group.questions[0].answers.length > 1">
+            <div
+              *ngFor="let answer of group.questions[0].answers; index as answerIndex"
+              class="result-at"
+            >
+              <span>{{ answer.answerType.name || answer.answerType.sequence }}:&nbsp;</span>
+              <span>{{ getValuePresentation(group.finalValues[answerIndex]) }}</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="group.questions[0].answers.length == 1">
+            <span class="center">{{ getValuePresentation(group.finalValues[0]) }}</span>
+          </ng-container>
+        </div>
+        <div
+          class="group-base-results"
+          *ngIf="hasBaseResults(group)"
+        >
+          <div
+            class="base-result"
+            *ngFor="let baseResult of baseResults(group)"
+          >
+            <span>{{ baseResult.name }}:&nbsp;</span>
+            <span>{{
+              baseResult.isRange
+                ? baseResult.initialValue + ' à ' + baseResult.finalValue
+                : baseResult.initialValue
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

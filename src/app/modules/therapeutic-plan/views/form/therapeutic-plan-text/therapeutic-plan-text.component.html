@@ -1,0 +1,32 @@
+<section class="forms">
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-100">
+      @defer {
+        <p-editor
+          id="therapeuticTextPlan"
+          name="therapeuticTextPlan"
+          formControlName="therapeuticTextPlan"
+          [readonly]="!editing || (editing && userId != form.getRawValue().currentUserEditorId)"
+          [style]="{ height: '160px' }"
+        />
+      } @placeholder (minimum 1000ms) {
+        <ngx-skeleton-loader [theme]="{ height: '135px' }" />
+      }
+    </div>
+  </form>
+  <div
+    *ngIf="form && editing && userId == form.getRawValue().currentUserEditorId"
+    class="actions"
+  >
+    <button
+      class="primary"
+      (click)="clickSave()"
+    >
+      <i class="fa-solid fa-floppy-disk"></i>
+      Salvar
+    </button>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+<main>
+  <div>
+    <section>
+      <img
+        src="/assets/images/ladvox-logo-withlegend.png"
+        alt=""
+        srcset=""
+      />
+    </section>
+    <section>
+      <h3>Bem vindo, {{ _userName }}</h3>
+    </section>
+    <section>
+      @defer {
+        <ng-container *ngFor="let chooseableUserRoleModel of chooseablesUserRoleModel">
+          <fieldset
+            class="paper-option"
+            (click)="clickChoose(chooseableUserRoleModel)"
+          >
+            <legend>
+              <i class="fa-regular fa-bell"
+                ><span> {{ (chooseableUserRoleModel.notifications || []).length }}</span></i
+              >
+            </legend>
+            <span class="paper-option-info">
+              <label>Papel</label>
+              <span class="info-value">{{ chooseableUserRoleModel.roleName }}</span>
+              <span
+                *ngIf="
+                  chooseableUserRoleModel.otherRoles &&
+                  chooseableUserRoleModel.otherRoles.length > 0
+                "
+                class="info-value"
+                >{{ chooseableUserRoleModel.otherRoles }}</span
+              >
+            </span>
+          </fieldset>
+        </ng-container>
+      } @placeholder (minimum 1000ms) {
+        <ngx-skeleton-loader
+          count="2"
+          [theme]="{ 'width': '180px', 'height': '90px', 'margin-right': '12px' }"
+        />
+      }
+    </section>
+    <section id="other-links">
+      <a
+        class="info"
+        (click)="back()"
+        >Voltar</a
+      >
+    </section>
+  </div>
+</main>

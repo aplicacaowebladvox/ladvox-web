@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600&display=swap');
+
+$font-family: 'Inter', sans-serif;
+$font-family-sora: 'Sora', sans-serif;
+
+$font-size: 16;
+
+$heading1: 600 40px $font-family-sora;
+$heading2: 600 32px $font-family-sora;
+$heading3: 600 24px $font-family-sora;
+$heading4: 600 20px $font-family;
+$heading5: 600 18px $font-family;
+$heading6: 600 16px $font-family;
+
+$text: 500 16px $font-family;
+$text-sm: 500 14px $font-family;
+$text-xsm: 500 12px $font-family;
+
+// color font https://imagecolorpicker.com
+
+/**/
+$primary: #352480;
+
+$primary-t90: #ebe9f2;
+$primary-t80: #d7d3e6;
+$primary-t70: #c2bdd9;
+$primary-t60: #aea7cc;
+$primary-t50: #9a92c0;
+$primary-t40: #867cb3;
+$primary-t30: #7266a6;
+$primary-t20: #5d5099;
+$primary-t10: #493a8d;
+
+$primary-s10: #302073;
+$primary-s20: #2a1d66;
+$primary-s30: #25195a;
+$primary-s40: #20164d;
+$primary-s50: #1b1240;
+$primary-s60: #150e33;
+$primary-s70: #100b26;
+$primary-s80: #0b071a;
+$primary-s90: #05040d;
+
+/**/
+$secondary: #e78f13;
+
+$secondary-t90: #fdf4e7;
+$secondary-t80: #fae9d0;
+$secondary-t70: #f8ddb8;
+$secondary-t60: #f5d2a1;
+$secondary-t50: #f3c789;
+$secondary-t40: #f1bc71;
+$secondary-t30: #eeb15a;
+$secondary-t20: #eca542;
+$secondary-t10: #e99a2b;
+
+$secondary-s10: #d08111;
+$secondary-s20: #b9720f;
+$secondary-s30: #a2640d;
+$secondary-s40: #8b560b;
+$secondary-s50: #74480a;
+$secondary-s60: #5c3908;
+$secondary-s70: #452b06;
+$secondary-s80: #2e1d04;
+$secondary-s90: #170e02;
+// $secondary: #00AEE6;
+
+// $secondary-t90: #e6f7fd;
+// $secondary-t80: #cceffa;
+// $secondary-t70: #b3e7f8;
+// $secondary-t60: #99dff5;
+// $secondary-t50: #80d7f3;
+// $secondary-t40: #66cef0;
+// $secondary-t30: #4dc6ee;
+// $secondary-t20: #33beeb;
+// $secondary-t10: #1ab6e9;
+
+// $secondary-s10: #009dcf;
+// $secondary-s20: #008bb8;
+// $secondary-s30: #007aa1;
+// $secondary-s40: #00688a;
+// $secondary-s50: #005773;
+// $secondary-s60: #00465c;
+// $secondary-s70: #003445;
+// $secondary-s80: #00232e;
+// $secondary-s90: #001117;
+
+/**/
+$black: #000000;
+
+$black-t90: #e6e6e6;
+$black-t80: #cccccc;
+$black-t70: #b3b3b3;
+$black-t60: #999999;
+$black-t50: #808080;
+$black-t40: #666666;
+$black-t30: #4d4d4d;
+$black-t20: #333333;
+$black-t10: #1a1a1a;
+
+/**/
+$white: #ffffff;
+
+$white-s10: #e6e6e6;
+$white-s20: #cccccc;
+$white-s30: #b3b3b3;
+$white-s40: #999999;
+$white-s50: #808080;
+$white-s60: #666666;
+$white-s70: #4c4c4c;
+$white-s80: #333333;
+$white-s90: #191919;
+
+/**/
+$success: #00875c;
+
+$success-t90: #e6f3ef;
+$success-t80: #cce7de;
+$success-t70: #b3dbce;
+$success-t60: #99cfbe;
+$success-t50: #80c3ae;
+$success-t40: #66b79d;
+$success-t30: #4dab8d;
+$success-t20: #339f7d;
+$success-t10: #1a936c;
+
+$success-s10: #007a53;
+$success-s20: #006c4a;
+$success-s30: #005f40;
+$success-s40: #005137;
+$success-s50: #00442e;
+$success-s60: #003625;
+$success-s70: #00281c;
+$success-s80: #001b12;
+$success-s90: #000d09;
+
+/**/
+$danger: #ee291d;
+
+$danger-t90: #fdeae8;
+$danger-t80: #fcd4d2;
+$danger-t70: #fabfbb;
+$danger-t60: #f8a9a5;
+$danger-t50: #f7948e;
+$danger-t40: #f57f77;
+$danger-t30: #f36961;
+$danger-t20: #f1544a;
+$danger-t10: #f03e34;
+
+$danger-s10: #d6251a;
+$danger-s20: #be2117;
+$danger-s30: #a71d14;
+$danger-s40: #8f1911;
+$danger-s50: #77150f;
+$danger-s60: #5f100c;
+$danger-s70: #470c09;
+$danger-s80: #300806;
+$danger-s90: #180403;
+
+/**/
+$info: #ffcc00;
+
+$info-t90: #fffae6;
+$info-t80: #fff5cc;
+$info-t70: #fff0b3;
+$info-t60: #ffeb99;
+$info-t50: #ffe680;
+$info-t40: #ffe066;
+$info-t30: #ffdb4d;
+$info-t20: #ffd633;
+$info-t10: #ffd11a;
+$info-s10: #e6b800;
+$info-s20: #cca300;
+$info-s30: #b38f00;
+$info-s40: #997a00;
+$info-s50: #806600;
+$info-s60: #665200;
+$info-s70: #4c3d00;
+$info-s80: #332900;
+$info-s90: #191400;
+
+/**/
+$warn: #ff7a00;
+
+$warn-t90: #fff2e6;
+$warn-t80: #ffe4cc;
+$warn-t70: #ffd7b3;
+$warn-t60: #ffca99;
+$warn-t50: #ffbd80;
+$warn-t40: #ffaf66;
+$warn-t30: #ffa24d;
+$warn-t20: #ff9533;
+$warn-t10: #ff871a;
+$warn-s10: #e66e00;
+$warn-s20: #cc6200;
+$warn-s30: #b35500;
+$warn-s40: #994900;
+$warn-s50: #803d00;
+$warn-s60: #663100;
+$warn-s70: #4c2500;
+$warn-s80: #331800;
+$warn-s90: #190c00;
+
+
+$body-background: #ededed;
+
+$animation-timing: 0.25s;

@@ -1,0 +1,23 @@
+<div class="content">
+  @defer {
+    <section
+      class="forms"
+      *ngFor="let project of projects"
+    >
+      <span class="title">Projeto</span>
+      <h4>{{ project.title }}</h4>
+      <p>
+        <em>{{ project.status }}</em>
+      </p>
+      <p *ngIf="project.type">
+        <em>{{ project.type }}</em>
+      </p>
+      <div [innerHTML]="project.description"></div>
+    </section>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader
+      count="3"
+      [theme]="{ width: '100%', height: '120px', margin: '12px' }"
+    />
+  }
+</div>

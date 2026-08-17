@@ -1,0 +1,229 @@
+<header>
+  <h1>Planejamento de atendimento</h1>
+</header>
+<app-tab
+  [items]="tabItems"
+  *ngIf="form"
+></app-tab>
+
+<section
+  *ngIf="(tabItems || []).length > 0"
+  class="forms"
+  [style]="!tabItems[0].isActive ? 'display: none;' : ''"
+>
+  <span class="title"> {{ id ? id + '' : 'Novo' }} - Planejamento de atendimento</span>
+  <form [formGroup]="form">
+    <div class="form-control w-70">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control-group w-30">
+      <label for="initialValidity">Validade de</label>
+      <div>
+        <input
+          type="date"
+          id="initialValidity"
+          name="initialValidity"
+          formControlName="initialValidity"
+        />
+        <label for="finalValidity">à</label>
+        <input
+          type="date"
+          id="finalValidity"
+          name="finalValidity"
+          formControlName="finalValidity"
+        />
+      </div>
+    </div>
+  </form>
+</section>
+
+<section
+  *ngIf="(tabItems || []).length > 1"
+  class="forms mj-team-section"
+  [style]="!tabItems[1].isActive ? 'display: none;' : ''"
+>
+  <ng-container *ngFor="let teamForm of form.getRawValue().teamsForms; index as teamFormIndex">
+    <form
+      [formGroup]="teamForm"
+      class="mj-team-card"
+      [style.background-color]="teamForm.getRawValue().color + '80'"
+    >
+      <div class="form-control w-100">
+        <label for="name">Nome</label>
+        <input
+          type="name"
+          id="name"
+          formControlName="name"
+          (change)="refreshTeamsAvailablesSelectOptions()"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="color">Cor</label>
+        <input
+          type="color"
+          id="color"
+          formControlName="color"
+          (change)="refreshTeamsAvailablesSelectOptions()"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="therapistsIds">Terapeutas</label>
+        <p-multiSelect
+          [options]="therapistsAvailables"
+          formControlName="therapistsIds"
+          optionLabel="name"
+          optionValue="id"
+          display="chip"
+          [showClear]="true"
+          (change)="refreshTeamsAvailablesSelectOptions()"
+        />
+      </div>
+      <button
+        class="danger"
+        (click)="clickRemoveTeam(teamFormIndex)"
+      >
+        <i class="fa-solid fa-trash"></i>
+        Remover
+      </button>
+    </form>
+  </ng-container>
+</section>
+
+<section
+  *ngIf="(tabItems || []).length > 2"
+  class="forms mj-team-section"
+  [style]="!tabItems[2].isActive ? 'display: none;' : ''"
+>
+  <ng-container
+    *ngFor="
+      let medicalAppointmentForm of form.getRawValue().medicalAppointmentForms;
+      index as medicalAppointmentFormIndex
+    "
+  >
+    <form
+      [formGroup]="medicalAppointmentForm"
+      class="mj-team-card"
+      [style.background-color]="
+        !!medicalAppointmentForm.getRawValue().team &&
+        medicalAppointmentForm.getRawValue().team.color
+          ? medicalAppointmentForm.getRawValue().team.color + '80'
+          : ''
+      "
+    >
+      <div class="form-control w-100">
+        <label for="team">Equipe</label>
+        <p-dropdown
+          inputId="team"
+          [options]="teamsAvailablesSelectOptions"
+          formControlName="team"
+          optionLabel="name"
+          [showClear]="true"
+          [filter]="true"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="room">Sala</label>
+        <input
+          type="text"
+          id="room"
+          formControlName="room"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="patientId">Paciente</label>
+        <p-dropdown
+          [options]="patientsAvailablesSelecOptions"
+          formControlName="patientId"
+          optionLabel="name"
+          optionValue="id"
+          display="chip"
+          [showClear]="true"
+        />
+      </div>
+      <div class="form-control w-50">
+        <label for="weekday">Dia da consulta</label>
+        <p-dropdown
+          inputId="weekday"
+          [options]="weekdaySelectOptions"
+          formControlName="weekday"
+          optionLabel="displayName"
+          [showClear]="true"
+          [filter]="true"
+        />
+      </div>
+      <div class="form-control w-50">
+        <label for="hour">Hora da consulta</label>
+        <input
+          type="time"
+          name="hour"
+          id="hour"
+          formControlName="hour"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="observation">Observação</label>
+        <textarea
+          name="observation"
+          id="observation"
+        ></textarea>
+      </div>
+      <button
+        class="danger"
+        (click)="clickRemoveMedicalAppointment(medicalAppointmentFormIndex)"
+      >
+        <i class="fa-solid fa-trash"></i>
+        Remover
+      </button>
+    </form>
+  </ng-container>
+</section>
+
+<section class="forms">
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <button
+      class="secondary"
+      *ngIf="canShow('buttonAddMedicalAppointment')"
+      (click)="clickAddMedicalAppointment()"
+    >
+      <i class="fa-solid fa-notes-medical"></i>
+      Novo Paciente
+    </button>
+    <button
+      class="secondary"
+      *ngIf="canShow('buttonAddTeam')"
+      (click)="clickAddTeam()"
+    >
+      <i class="fa-solid fa-user-plus"></i>
+      Novo time
+    </button>
+    <button
+      class="primary"
+      *ngIf="canShow('buttonSave')"
+      (click)="clickSave()"
+    >
+      <i class="fa-solid fa-floppy-disk"></i>
+      Salvar
+    </button>
+    <button
+      class="primary"
+      *ngIf="canShow('buttonCreate')"
+      (click)="clickCreate()"
+    >
+      <i class="fa-solid fa-circle-plus"></i>
+      Criar
+    </button>
+  </div>
+</section>

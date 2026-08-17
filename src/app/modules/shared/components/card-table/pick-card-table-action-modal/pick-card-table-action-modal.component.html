@@ -1,0 +1,8 @@
+<div class="choose-action-container">
+  <ng-container *ngFor="let action of data.actions">
+    <div (click)="choose(action)">
+      <i [class]="action.iconClass"></i>
+      <span>{{ action.tooltip }}</span>
+    </div>
+  </ng-container>
+</div>

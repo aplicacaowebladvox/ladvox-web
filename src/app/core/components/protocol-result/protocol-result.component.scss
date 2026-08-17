@@ -1,0 +1,43 @@
+@import './../../../../assets/scss/vars';
+
+h4 {
+  margin-bottom: 8px;
+}
+.results {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.result-container {
+  display: flex;
+  flex-direction: column;
+  width: calc(33% - calc(16 / 3 * 1px));
+  gap: 8px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+  > h5 {
+    margin: 0;
+    text-align: center;
+    color: $primary;
+  }
+  > div.result-at-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    > div.result-at {
+      display: flex;
+      :last-child {
+        color: $secondary;
+      }
+    }
+  }
+  .center {
+    text-align: center;
+  }
+}

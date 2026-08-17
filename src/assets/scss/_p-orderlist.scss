@@ -1,0 +1,45 @@
+@import './vars';
+
+p-orderlist {
+  width: 100%;
+  .p-orderlist-controls {
+    width: auto;
+    padding: 4px;
+    row-gap: 4px;
+    > button {
+      min-width: 24px;
+      min-height: 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      border-width: 0;
+      background-color: $primary-t90;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      column-gap: 0px;
+      padding: 0px;
+      cursor: pointer;
+    }
+  }
+}
+
+p-splitter {
+  border-width: 0px;
+  .content-splitter {
+    min-width: 30%;
+    width: 30%;
+    > div {
+      width: 100% !important;
+    }
+  }
+
+  .p-orderlist-header {
+    padding: 8px;
+  }
+  li {
+    border-radius: 8px;
+    margin: 0px 2px 2px 2px;
+  }
+}

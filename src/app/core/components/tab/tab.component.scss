@@ -1,0 +1,62 @@
+@import './../../../../assets/scss/vars';
+
+.mj-tab {
+  .mj-tab-header {
+    display: flex;
+    column-gap: 12px;
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-color: $primary;
+    color: $primary;
+    border-style: solid;
+    .mj-tab-title {
+      border-width: 2px;
+      border-color: $primary;
+      color: $primary;
+      border-style: solid;
+      margin: 0;
+      padding: 8px;
+      text-align: center;
+      align-self: center;
+      border-radius: 8px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-width: 0;
+      cursor: pointer;
+
+      &.mj-h1 {
+        font: $heading1;
+      }
+      &.mj-h2 {
+        font: $heading2;
+      }
+      &.mj-h3 {
+        font: $heading3;
+      }
+      &.mj-h4 {
+        font: $heading4;
+      }
+      &.mj-h5 {
+        font: $heading5;
+      }
+      &.mj-h6 {
+        font: $heading6;
+      }
+      &:hover {
+        background-color: $primary-t80;
+      }
+      &.active,
+      &:active {
+        background-color: $primary-t80;
+      }
+      &.disabled {
+        color: $primary-t50;
+        border-color: $primary-t50;
+        cursor: not-allowed;
+        &.disabled {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}

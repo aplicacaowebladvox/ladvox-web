@@ -1,0 +1,64 @@
+@import './../../../../../assets/scss/vars';
+
+.p-splitter-left {
+  padding: 12px;
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  min-width: none;
+  row-gap: 4px;
+  > button {
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+form.p-splitter-left {
+  justify-content: flex-start;
+}
+.order-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: $primary-t10;
+  border-style: solid;
+  margin: 0px 2px 2px 2px;
+  > div {
+    &:first-child {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  > div {
+    &:has(> i) {
+      margin-right: inherit;
+      > i {
+        margin-right: 1rem;
+        &:hover {
+          color: $danger;
+          cursor: pointer;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+.actions {
+  display: flex;
+  margin-bottom: 8px;
+  > div {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    &.onright {
+      justify-content: flex-end;
+    }
+    &.oncenter {
+      justify-content: center;
+    }
+  }
+}

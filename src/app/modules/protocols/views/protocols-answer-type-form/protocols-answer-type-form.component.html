@@ -1,0 +1,180 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Protocolos</h1>
+  <p>Tipos de resposta</p>
+</header>
+
+<app-tab
+  *ngIf="form && tabItems"
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+
+<div
+  class="actions"
+  *ngIf="form"
+>
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+    <ng-container *hasPermission="'protocolo.protocolo.form.edit'">
+      <button
+        *ngIf="editing"
+        class="primary"
+        (click)="clickAddNewAnswerType()"
+      >
+        Adicionar novo tipo de respostas
+      </button>
+    </ng-container>
+  </div>
+  <div class="onright">
+    <ng-container *hasPermission="'protocolo.protocolo.form.edit'">
+      <button
+        *ngIf="editing"
+        class="success"
+        (click)="clickSave()"
+      >
+        Salvar
+      </button>
+    </ng-container>
+    <button
+      class="success"
+      *ngIf="editing && form.getRawValue().nextStepIsEnable"
+      (click)="clickContinue()"
+    >
+      Continuar
+    </button>
+  </div>
+</div>
+<ng-container *ngIf="form">
+  <ng-container
+    *ngFor="let answerTypeForm of form.getRawValue().answersTypeForm; index as answerTypeFormIndex"
+  >
+    <app-accordion
+      [title]="answerTypeForm.getRawValue().name || 'Novo tipo de resposta'"
+      [isAccordionGroup]="true"
+      [componentId]="'' + answerTypeFormIndex"
+      [actions]="answerTypeActions"
+    >
+      <form
+        *ngIf="answerTypeForm"
+        (keydown.enter)="$event.preventDefault()"
+        [formGroup]="answerTypeForm"
+      >
+        <div class="form-control w-80">
+          <label [for]="'answerTypeForm-' + answerTypeFormIndex">Nome</label>
+          <input
+            type="text"
+            [id]="'answerTypeName-' + answerTypeFormIndex"
+            [name]="'answerTypeName-' + answerTypeFormIndex"
+            formControlName="name"
+            minlength="10"
+            maxlength="255"
+          />
+        </div>
+        <div class="form-control w-20">
+          <label [for]="'useRangeAnswer-' + answerTypeFormIndex">
+            Usar Intervalo de valores?
+          </label>
+          <label [for]="'useRangeAnswer-' + answerTypeFormIndex">
+            <input
+              type="checkbox"
+              [id]="'useRangeAnswer-' + answerTypeFormIndex"
+              [name]="'useRangeAnswer-' + answerTypeFormIndex"
+              formControlName="useRangeAnswer"
+            />
+          </label>
+        </div>
+        <fieldset class="form-control w-100">
+          <legend>Valores Aceitos</legend>
+          <p-splitter panelStyleClass="content-splitter">
+            <ng-template
+              pTemplate
+              *ngIf="editing"
+            >
+              <form
+                *ngIf="answerTypeForm.getRawValue().edittingAcceptableValueForm && editing"
+                class="p-splitter-left"
+                (keyup.enter)="clickAddAcceptedValue(answerTypeFormIndex)"
+                [formGroup]="answerTypeForm.getRawValue().edittingAcceptableValueForm"
+              >
+                <div class="form-control">
+                  <label for="acceptedValue">Valor</label>
+                  <input
+                    [type]="
+                      answerTypeForm.getRawValue().answerValueType == 'TEXT' ? 'text' : 'number'
+                    "
+                    id="acceptedValue"
+                    name="acceptedValue"
+                    formControlName="value"
+                  />
+                </div>
+                <div class="form-control">
+                  <label for="acceptedValuePresentation">Apresentação</label>
+                  <input
+                    type="text"
+                    id="acceptedValuePresentation"
+                    name="acceptedValuePresentation"
+                    formControlName="presentation"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="success"
+                  (click)="clickAddAcceptedValue(answerTypeFormIndex)"
+                >
+                  Adicionar
+                </button>
+              </form>
+            </ng-template>
+            <ng-template pTemplate>
+              <ng-container *ngIf="answerTypeForm.getRawValue().acceptableValuesForm">
+                <p-orderList
+                  class="p-splitter-right"
+                  [value]="answerTypeForm.getRawValue().acceptableValuesForm"
+                  [listStyle]="{ 'max-height': '30rem' }"
+                  header="Lista de valores aceitos"
+                  [dragdrop]="editing"
+                  [id]="'orderListValues-' + answerTypeFormIndex"
+                >
+                  <ng-template
+                    let-acceptableValueForm
+                    pTemplate="item"
+                  >
+                    <div class="order-list-item">
+                      <div>
+                        <span *ngIf="acceptableValueForm.getRawValue().presentation"
+                          >({{ acceptableValueForm.getRawValue().value }}) -
+                          {{ acceptableValueForm.getRawValue().presentation }}</span
+                        >
+                        <span *ngIf="!acceptableValueForm.getRawValue().presentation">{{
+                          acceptableValueForm.getRawValue().value
+                        }}</span>
+                      </div>
+                      <div *ngIf="editing">
+                        <i
+                          class="fa-solid fa-pencil"
+                          (click)="clickEditOrderListItem(answerTypeFormIndex, acceptableValueForm)"
+                        ></i>
+                        <i
+                          class="fa-solid fa-trash-can"
+                          (click)="
+                            clickRemoveOrderListItem(answerTypeFormIndex, acceptableValueForm)
+                          "
+                        ></i>
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-orderList>
+              </ng-container>
+            </ng-template>
+          </p-splitter>
+        </fieldset>
+      </form>
+    </app-accordion>
+  </ng-container>
+</ng-container>

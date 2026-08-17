@@ -1,0 +1,34 @@
+<header>
+  <h1>Protocolos</h1>
+  <p>Perguntas</p>
+</header>
+
+<app-tab
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+<ng-container *ngIf="isLoad && data && tabItems">
+  <app-answer-type-tab
+    #appAnswerTypeTab
+    *ngIf="tabItems[0] && tabItems[0].isActive"
+    [answersType]="answersType"
+    (onClickBack)="onClickBack(0)"
+    (onClickSave)="onClickSave(0)"
+  ></app-answer-type-tab>
+  <app-question-tab
+    #appQuestionTab
+    *ngIf="tabItems[1] && tabItems[1].isActive"
+    [questions]="questions"
+    (onClickBack)="onClickBack(1)"
+    (onClickSave)="onClickSave(1, $event)"
+  ></app-question-tab>
+  <app-group-question-tab
+    #appGroupQuestionTab
+    *ngIf="tabItems[2] && tabItems[2].isActive"
+    [answersType]="answersType"
+    [questions]="questions"
+    [groups]="groups"
+    (onClickBack)="onClickBack(2)"
+    (onClickSave)="onClickSave(2)"
+  ></app-group-question-tab>
+</ng-container>

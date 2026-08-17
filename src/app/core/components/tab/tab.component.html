@@ -1,0 +1,15 @@
+<div class="mj-tab">
+  <header class="mj-tab-header">
+    <h3
+      *ngFor="let item of items"
+      class="mj-tab-title"
+      [class]="'mj-h' + (item.titleSize || 3)"
+      [class.disabled]="item.isDisabled"
+      [class.active]="item.isActive"
+      (click)="clickTab(item)"
+      [title]="item.displayName"
+    >
+      {{ format(item) }}
+    </h3>
+  </header>
+</div>

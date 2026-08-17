@@ -1,0 +1,39 @@
+<header>
+  <h1>Planejamento de atendimento</h1>
+  <p>Relatórios do Planejamento{{ model && model.name ? ' "' + model.name + '"' : '' }}</p>
+</header>
+
+<app-tab
+  *ngIf="model && tabItems"
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+  </div>
+  <div class="onright">
+    <button
+      class="success"
+      (click)="clickContinue()"
+    >
+      Voltar à listagem
+    </button>
+  </div>
+</div>
+
+@defer {
+  <app-file-upload
+    [readonly]="!editing"
+    [entityId]="id"
+    [store]="attachmentStore"
+  ></app-file-upload>
+} @placeholder (minimum 1000ms) {
+  <ngx-skeleton-loader [theme]="{ height: '260px' }" />
+}

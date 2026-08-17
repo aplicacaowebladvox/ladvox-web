@@ -1,0 +1,83 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Pacientes</h1>
+  <p *ngIf="patientName">
+    {{ anamnesisId ? 'Anamnese' : 'Nova anamnese' }} do(a) paciente "{{ patientName }}"
+  </p>
+</header>
+<section class="forms">
+  <span class="title"> {{ anamnesisId ? anamnesisId + '' : 'Nova' }} - Anamnese</span>
+  @defer {
+    <form
+      *ngIf="form"
+      [formGroup]="form"
+    >
+      <div class="form-control w-100">
+        <p-editor
+          id="anamnese"
+          name="anamnese"
+          [style]="{ height: '160px' }"
+          formControlName="anamnesiText"
+          [readonly]="form.disabled"
+        />
+      </div>
+      <div class="form-control w-100">
+        <app-file-upload
+          *ngIf="!this.anamnesisId"
+          [entityId]="'patientId=' + this.id"
+          [store]="this.attachmentStore"
+          (onEntityIdGenerated)="onEntityIdGenerated($event)"
+        ></app-file-upload>
+        <app-file-upload
+          *ngIf="this.anamnesisId"
+          [entityId]="this.anamnesisId"
+          [store]="this.attachmentStore"
+          [readonly]="form.disabled"
+        ></app-file-upload>
+      </div>
+    </form>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader
+      count="2"
+      [theme]="{ height: '60px' }"
+    />
+  }
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasPermission="'paciente.anamnese.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!anamnesisId && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+      <button
+        class="primary"
+        *ngIf="!!anamnesisId && !editing"
+        (click)="clickEnableEdit()"
+      >
+        <i class="fa-solid fa-pencil"></i>
+        Editar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'paciente.anamnese.form.new'">
+      <button
+        class="primary"
+        *ngIf="!anamnesisId"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+  </div>
+</section>

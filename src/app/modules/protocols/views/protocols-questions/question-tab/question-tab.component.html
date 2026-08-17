@@ -1,0 +1,89 @@
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+  </div>
+  <div class="onright">
+    <button
+      class="success"
+      (click)="clickSaveAndNext()"
+    >
+      Salvar
+    </button>
+  </div>
+</div>
+
+<p-splitter panelStyleClass="content-splitter">
+  <ng-template pTemplate>
+    <form
+      [formGroup]="questionsFormGroup"
+      class="p-splitter-left"
+      (keyup.enter)="clickAddQuestion()"
+    >
+      <div class="form-control">
+        <label for="question">Pergunta</label>
+        <input
+          type="text"
+          id="question"
+          name="question"
+          formControlName="question"
+        />
+      </div>
+      <div class="form-control">
+        <label for="abbreviation">Abreviação</label>
+        <input
+          type="text"
+          id="abbreviation"
+          name="abbreviation"
+          formControlName="abbreviation"
+          maxlength="5"
+        />
+      </div>
+      <button
+        type="button"
+        class="success"
+        (click)="clickAddQuestion()"
+      >
+        Adicionar
+      </button>
+    </form>
+  </ng-template>
+  <ng-template pTemplate>
+    <p-orderList
+      class="p-splitter-right"
+      [value]="this.questionsFormGroup.getRawValue().questions"
+      [listStyle]="{ 'max-height': '30rem' }"
+      header="Lista de perguntas do protocolo"
+      [dragdrop]="true"
+      id="questionsOrderList"
+      (onReorder)="onChangeQuestionOrder()"
+    >
+      <ng-template
+        let-question
+        pTemplate="item"
+      >
+        <div class="order-list-item">
+          <div>
+            <span *ngIf="!!question.abbreviation"
+              >({{ question.abbreviation }}) -
+              {{ ' (' + question.sequence + ') -' + question.question }}</span
+            >
+            <span *ngIf="!question.abbreviation">{{
+              ' (' + question.sequence + ') -' + question.question
+            }}</span>
+          </div>
+          <div>
+            <i
+              class="fa-solid fa-trash-can"
+              (click)="clickRemoveQuestionOrderListItem(question)"
+            ></i>
+          </div>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </ng-template>
+</p-splitter>

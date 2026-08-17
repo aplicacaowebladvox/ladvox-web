@@ -1,0 +1,51 @@
+<div
+  *ngIf="userId"
+  class="comment-box"
+>
+  <div class="comments-show">
+    @defer {
+      <ng-container *ngFor="let comment of comments; index as commentIndex">
+        <div
+          class="comment {{ comment.userId == userId ? 'on-right' : '' }}"
+          [id]="commentIndex"
+        >
+          <div>
+            <p-avatar
+              [label]="comment.userName.substring(0, 2)"
+              size="normal"
+              shape="circle"
+            />
+            <span [innerHTML]="comment.textComment"></span>
+          </div>
+          <div>
+            {{ dateToString(comment.createdDate) }}
+          </div>
+        </div>
+      </ng-container>
+    } @placeholder (minimum 1000ms) {
+      <ng-container *ngFor="let i of [0, 1, 2]">
+        <ngx-skeleton-loader
+          count="1"
+          [theme]="{ width: '75%', height: '78px' }"
+        />
+        <ngx-skeleton-loader
+          count="1"
+          [theme]="{ 'width': '75%', 'height': '78px', 'margin-left': '25%' }"
+        />
+      </ng-container>
+    }
+  </div>
+  <div class="new-comment">
+    <div class="form-control">
+      <textarea
+        name="textComment"
+        id="textComment"
+        [(ngModel)]="textComment"
+        [maxlength]="500"
+        rows="4"
+        (keyup.control.enter)="clickSend()"
+      ></textarea>
+    </div>
+    <button (click)="clickSend()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>

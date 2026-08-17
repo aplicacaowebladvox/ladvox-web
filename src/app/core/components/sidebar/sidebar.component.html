@@ -1,0 +1,54 @@
+<aside [class.collapsed]="isCollapsed">
+  <header>
+    <a (click)="goHome()">
+      <img
+        src="assets/images/ladvox-logo-withlegend.png"
+        *ngIf="!isCollapsed"
+      />
+      <img
+        src="assets/images/ladvox-logo-onlyhead.png"
+        *ngIf="isCollapsed"
+      />
+    </a>
+  </header>
+  <nav id="body">
+    <ul>
+      <ng-container *ngFor="let item of menu; index as i">
+        <app-menu-item
+          [item]="item"
+          [index]="i + 1"
+          [collapsed]="isCollapsed"
+        ></app-menu-item>
+      </ng-container>
+    </ul>
+  </nav>
+  <div
+    id="collapse-button"
+    (click)="collapse(!this.isCollapsed)"
+  >
+    <fa-icon [icon]="isCollapsed ? faChevronRight : faChevronLeft"></fa-icon>
+    <span>Collapse menu</span>
+  </div>
+  <hr />
+  <footer>
+    <div id="user-info">
+      <p-avatar
+        [image]="dataFooterSidebar.imageProfile ? dataFooterSidebar.imageProfile : undefined"
+        [label]="dataFooterSidebar.imageProfile ? undefined : dataFooterSidebar.userNameInitials"
+        [size]="isCollapsed ? 'normal' : 'xlarge'"
+        shape="circle"
+      />
+      <div id="data">
+        <span id="name">{{ dataFooterSidebar.userName }}</span>
+        <span id="paper"
+          ><i>{{ dataFooterSidebar.userRoleName }}</i></span
+        >
+      </div>
+    </div>
+    <a
+      class="primary"
+      (click)="logout()"
+      >Sair</a
+    >
+  </footer>
+</aside>

@@ -1,0 +1,12 @@
+.content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  h4 {
+    margin: 0;
+  }
+  p:has(> em) {
+    margin: 0;
+  }
+}

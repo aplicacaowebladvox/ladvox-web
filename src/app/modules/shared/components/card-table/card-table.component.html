@@ -1,0 +1,98 @@
+<header *ngIf="hasSomeData && orderByFilters && orderByFilters.length > 0">
+  <ng-container *ngFor="let filter of orderByFilters || []; index as i">
+    <div
+      id="filter"
+      (click)="clickOrderByFilters(filter)"
+    >
+      <span>{{ filter.title }}</span>
+      <i
+        *ngIf="filter.typeOrder == 'asc'"
+        class="fa-solid fa-arrow-down-short-wide"
+        alt="order by asc"
+      ></i>
+      <i
+        *ngIf="filter.typeOrder == 'desc'"
+        class="fa-solid fa-arrow-up-wide-short"
+        alt="order by desc"
+      ></i>
+      <span
+        *ngIf="filter.orderPriority && filter.orderPriority > 0"
+        class="order-priority-number"
+        >{{ filter.orderPriority }}</span
+      >
+    </div>
+  </ng-container>
+  <span>|</span>
+  <div
+    id="filter"
+    (click)="clickCleanOrderByFilters()"
+  >
+    <i class="fa-solid fa-eraser"></i>
+    <span>Limpar</span>
+  </div>
+  <div
+    id="filter"
+    (click)="clickApplyOrderByFilters()"
+  >
+    <i class="fa-solid fa-circle-check"></i>
+    <span>Aplicar</span>
+  </div>
+</header>
+<fieldset
+  id="body"
+  *ngIf="!cardTableConfig.isLoading && !hasSomeData"
+>
+  Nenhum Resultado Encontrado
+</fieldset>
+<fieldset
+  id="body"
+  [class.clickable]="cardTableConfig.showActionsAsModalForSelect && actions && actions.length > 0"
+  (click)="cardTableConfig.showActionsAsModalForSelect && clickForActions(item)"
+  *ngFor="let item of registers"
+>
+  <legend id="actions">
+    <ng-container *ngIf="!cardTableConfig.showActionsAsModalForSelect">
+      <ng-container *ngFor="let action of actions">
+        <span
+          *ngIf="action.config.isVisible(item)"
+          (click)="clickAction(action.config, item)"
+          [class]="!!action.config.customClass ? action.config.customClass : ''"
+        >
+          <i [class]="action.config.iconClass"></i>
+          <span>{{ action.config.tooltip }}</span>
+        </span>
+      </ng-container>
+    </ng-container>
+  </legend>
+  <div id="card-data">
+    <div
+      *ngFor="let column of cardTableConfig.columns"
+      [class]="column.customClass"
+      [class]="'w-' + (column.width || 33)"
+    >
+      <span class="label">{{ column.title }}</span>
+      <span
+        class="data"
+        [style]="handleCellStyle(column, item)"
+        [innerHTML]="handleCellValue(column, item)"
+      ></span>
+    </div>
+  </div>
+</fieldset>
+<footer *ngIf="hasSomeData">
+  <app-pagination
+    [totalRegisters]="totalRegisters"
+    [gridOption]="cardTableConfig.options"
+    (onPaginationChange)="onPaginationChange($event)"
+  ></app-pagination>
+  <div id="data-size">
+    <span>{{ totalRegisters + ' Resultados encontratos' }}</span>
+    <span>{{ dateOfFilter }}</span>
+  </div>
+</footer>
+
+<ngx-skeleton-loader
+  *ngIf="cardTableConfig.isLoading"
+  count="5"
+  [theme]="{ height: '20px' }"
+/>

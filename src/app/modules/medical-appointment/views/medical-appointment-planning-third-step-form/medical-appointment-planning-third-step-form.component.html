@@ -1,0 +1,158 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Planejamento de atendimento</h1>
+  <p>
+    Pacientes atendidos(as) n Planejamento{{
+      form && form.getRawValue() && form.getRawValue().name
+        ? ' "' + form.getRawValue().name + '"'
+        : ''
+    }}
+  </p>
+</header>
+
+<app-tab
+  *ngIf="form && tabItems"
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+  </div>
+  <div class="onright">
+    <ng-container
+      *ngIf="
+        editing &&
+        (hasPermissionFormEdit ||
+          (hasPermissionFormNew &&
+            form &&
+            form.getRawValue() &&
+            form.getRawValue().nextStepIsEnable))
+      "
+    >
+      <button
+        class="secondary"
+        (click)="clickAddMedicalAppointment()"
+      >
+        <i class="fa-solid fa-user-plus"></i>
+        Novo(a) paciente
+      </button>
+      <button
+        *ngIf="editing"
+        class="success"
+        (click)="clickSave()"
+      >
+        Salvar
+      </button>
+    </ng-container>
+    <button
+      *ngIf="form && form.getRawValue() && form.getRawValue().nextStepIsEnable"
+      class="success"
+      (click)="clickContinue()"
+    >
+      Continuar
+    </button>
+  </div>
+</div>
+<section class="forms mj-team-section">
+  @defer {
+    <ng-container
+      *ngFor="
+        let medicalAppointmentForm of form.getRawValue().medicalAppointmentForms;
+        index as medicalAppointmentFormIndex
+      "
+    >
+      <form
+        [formGroup]="medicalAppointmentForm"
+        class="mj-team-card"
+        [style.background-color]="
+          !!medicalAppointmentForm.getRawValue().team &&
+          medicalAppointmentForm.getRawValue().team.extraAttribute
+            ? medicalAppointmentForm.getRawValue().team.extraAttribute + '80'
+            : ''
+        "
+      >
+        <div class="form-control w-100">
+          <label for="team">Equipe</label>
+          <p-dropdown
+            inputId="team"
+            [options]="teamsSelectOptions"
+            formControlName="team"
+            optionLabel="name"
+            [showClear]="true"
+            [filter]="true"
+          />
+        </div>
+        <div class="form-control w-100">
+          <label for="room">Sala</label>
+          <input
+            type="text"
+            id="room"
+            formControlName="room"
+          />
+        </div>
+        <div class="form-control w-100">
+          <label for="patientId">Paciente</label>
+          <p-dropdown
+            [options]="patientsSelecOptions"
+            formControlName="patientId"
+            optionLabel="name"
+            optionValue="id"
+            display="chip"
+            [showClear]="true"
+          />
+        </div>
+        <div class="form-control w-50">
+          <label for="weekDay">Dia da consulta</label>
+          <p-dropdown
+            inputId="weekDay"
+            [options]="weekdaySelectOptions"
+            formControlName="weekDay"
+            optionValue="id"
+            optionLabel="name"
+            [showClear]="true"
+            [filter]="true"
+          />
+        </div>
+        <div class="form-control w-50">
+          <label for="hour">Hora da consulta</label>
+          <input
+            type="time"
+            name="hour"
+            id="hour"
+            formControlName="hour"
+          />
+        </div>
+        <div class="form-control w-100">
+          <label for="observation">Observação</label>
+          <textarea
+            name="observation"
+            id="observation"
+            formControlName="observation"
+          ></textarea>
+        </div>
+        <button
+          *ngIf="editing"
+          class="danger"
+          (click)="
+            clickRemoveMedicalAppointment(medicalAppointmentForm, medicalAppointmentFormIndex)
+          "
+        >
+          <i class="fa-solid fa-trash"></i>
+          Remover
+        </button>
+      </form>
+    </ng-container>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader
+      count="3"
+      [theme]="{ 'width': '460px', 'height': '260px', 'margin-right': '12px' }"
+    />
+  }
+</section>

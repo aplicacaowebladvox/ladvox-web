@@ -1,0 +1,16 @@
+<div id="pages">
+  <div class="buttons-gouped">
+    <span *ngIf="showGoToFirst" (click)="clickPage(0)"><</span>
+    <span *ngIf="showGoBackOne" (click)="clickPage(currentPage-1)">{{currentPage-1}}</span>
+    <span [class.active]="true">{{currentPage}}</span>
+    <span *ngIf="showGoNextOne"(click)="clickPage(currentPage+1)">{{currentPage+1}}</span>
+    <span *ngIf="showEllipsis">...</span>
+    <span *ngIf="showGoToLast"(click)="clickPage(pages)">></span>
+  </div>
+|
+  <div class="buttons-gouped" *ngIf="allowsPages && allowsPages.length > 0">
+    <span *ngFor="let allowPage of allowsPages" [class.active]="pageSize == allowPage">
+      {{allowPage}}
+    </span>
+  </div>
+</div>

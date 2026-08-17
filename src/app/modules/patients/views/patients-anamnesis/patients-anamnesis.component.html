@@ -1,0 +1,85 @@
+<header>
+  <h1>Pacientes</h1>
+  <p>Anamneses do(a) paciente{{ patientName ? ' "' + patientName + '"' : '' }}</p>
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+    (keydown.enter)="$event.preventDefault()"
+    (keyup.enter)="clickFilter()"
+  >
+    <div class="form-control w-75">
+      <label for="therapistId">Terapeuta</label>
+      <p-dropdown
+        inputId="therapist"
+        [options]="therapistsSelectOptions"
+        formControlName="therapistId"
+        optionLabel="name"
+        optionValue="id"
+        [showClear]="true"
+        [filter]="true"
+      />
+    </div>
+    <div class="form-control-group w-25">
+      <label for="createdDateStarts">Data de criação entre</label>
+      <div>
+        <input
+          type="date"
+          id="createdDateStarts"
+          name="createdDateStarts"
+          formControlName="createdDateStarts"
+        />
+        <label for="createdDateEnds">e</label>
+        <input
+          type="date"
+          id="createdDateEnds"
+          name="createdDateEnds"
+          formControlName="createdDateEnds"
+        />
+      </div>
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <button
+      class="warn"
+      (click)="clickClean()"
+    >
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      Limpar
+    </button>
+    <button
+      class="primary"
+      (click)="clickFilter()"
+    >
+      <i class="fa-solid fa-filter"></i>
+      Buscar
+    </button>
+  </div>
+</section>
+<section class="actions">
+  <ng-container *hasPermission="'paciente.anamnese.form.new'">
+    <button
+      class="success"
+      (click)="clickAddNew()"
+    >
+      <i class="fa-solid fa-circle-plus"></i>
+      Novo
+    </button>
+  </ng-container>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="anamnesisCardTable">
+    <app-action-card-table [config]="editCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="viewCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

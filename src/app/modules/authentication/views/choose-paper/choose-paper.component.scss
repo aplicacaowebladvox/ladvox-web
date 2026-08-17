@@ -1,0 +1,86 @@
+@import './../../../../../assets/scss/vars';
+
+main {
+  height: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  max-height: max-content;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  > div {
+    background-color: white;
+    width: 50%;
+    padding: 24px;
+    border-radius: 8px;
+
+    .paper-option {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      border-width: 2px;
+      border-color: $primary;
+      border-style: solid;
+      border-radius: 8px;
+      padding: 12px;
+      > legend {
+        margin-left: auto;
+      }
+      gap: 12px;
+      &:hover {
+        cursor: pointer;
+        background-color: $primary-t90;
+      }
+
+      :hover {
+        cursor: pointer;
+      }
+
+      > span.paper-option-info {
+        display: flex;
+        flex-direction: column;
+        > label {
+          color: $secondary;
+          font: $text;
+        }
+        > .info-value {
+          color: $primary;
+          font: $heading3;
+        }
+      }
+    }
+    > section {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      > img {
+        width: 70%;
+        height: auto;
+      }
+      h6 {
+        color: $black-t30;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
+      .form,
+      form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 24px;
+        button {
+          width: 100%;
+        }
+        margin-bottom: 12px;
+      }
+      &#other-links {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 4px;
+      }
+    }
+  }
+}

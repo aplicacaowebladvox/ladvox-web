@@ -1,0 +1,208 @@
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+    <button
+      class="primary"
+      (click)="clickAddNewGroupQuestion()"
+    >
+      Adicionar novo grupo
+    </button>
+  </div>
+  <div class="onright">
+    <button
+      class="success"
+      (click)="clickSaveAndNext()"
+    >
+      Salvar
+    </button>
+  </div>
+</div>
+<ng-container *ngFor="let groupQuestion of groupsFormGroup || []; index as i">
+  <app-accordion
+    [title]="groupQuestion.getRawValue().name || 'Novo grupo'"
+    [isAccordionGroup]="true"
+    [componentId]="'' + i"
+    [actions]="groupItemActions"
+  >
+    <form
+      (keydown.enter)="$event.preventDefault()"
+      [formGroup]="groupQuestion"
+    >
+      <div class="form-control">
+        <label for="questionGroupName">Nome</label>
+        <input
+          type="text"
+          formControlName="name"
+        />
+      </div>
+      <div class="w-100">
+        <app-accordion
+          title="Perguntas"
+          [isAccordionGroup]="true"
+        >
+          <div id="accordion-question">
+            <ng-container *ngFor="let question of groupQuestion.getRawValue().questions">
+              <p-toggleButton
+                (onChange)="_reCalculate(i, $event)"
+                [formControl]="question.checked"
+                [onLabel]="
+                  '(' +
+                  question.question.sequence +
+                  ') - ' +
+                  reduceString(question.question.question)
+                "
+                [offLabel]="
+                  '(' +
+                  question.question.sequence +
+                  ') - ' +
+                  reduceString(question.question.question)
+                "
+              />
+            </ng-container>
+          </div>
+        </app-accordion>
+        <app-accordion
+          title="Resultados base"
+          [isAccordionGroup]="true"
+          [componentId]="i + '/*/BaseResult'"
+          [actions]="groupsBaseResultsActions"
+        >
+          <ng-container *ngFor="let baseResult of groupsBaseResultsFormGroup[i]; index as j">
+            <app-accordion
+              [title]="baseResult.getRawValue().name || 'Resultado Base'"
+              [isAccordionGroup]="true"
+              [actions]="groupsBaseResultsItemActions"
+              [componentId]="i + '/*/' + j"
+            >
+              <form [formGroup]="baseResult">
+                <div class="form-control w-50">
+                  <label for="baseResultName">Nome</label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                  />
+                </div>
+                <div class="form-control w-15">
+                  <label
+                    for="answerType"
+                    formControlName="answerType"
+                    >Tipo de resposta</label
+                  >
+                  <input type="text" />
+                </div>
+                <div class="form-control w-15">
+                  <label for="isRange"> Usar valor como intervalo? </label>
+                  <label for="isRange">
+                    <input
+                      type="checkbox"
+                      id="isRange"
+                      name="isRange"
+                      formControlName="isRange"
+                    />
+                  </label>
+                </div>
+                <div class="form-control w-10">
+                  <label for="initialValue">Valor inicial</label>
+                  <input
+                    type="text"
+                    formControlName="initialValue"
+                  />
+                </div>
+                <div class="form-control w-10">
+                  <label for="finalValue">Valor final</label>
+                  <input
+                    type="text"
+                    formControlName="finalValue"
+                  />
+                </div>
+              </form>
+            </app-accordion>
+          </ng-container>
+        </app-accordion>
+        <app-accordion
+          title="Resultados"
+          [isAccordionGroup]="true"
+          [componentId]="i + '/*/ResultFunction'"
+          [actions]="groupsFunctionsActions"
+        >
+          <ng-container
+            *ngFor="
+              let groupQuestionFunction of groupQuestion.getRawValue().functions;
+              index as functionIndex
+            "
+          >
+            <app-accordion
+              [title]="'Nova função de resultado'"
+              [isAccordionGroup]="true"
+              [componentId]="i + '/*/' + functionIndex + '/*/ResultFunction'"
+              [actions]="groupsFunctionsItemActions"
+            >
+              <div id="accordion-function">
+                <div class="form-control">
+                  <label for="resultFunctionName">Nome</label>
+                  <input
+                    type="text"
+                    id="resultFunctionName"
+                    name="resultFunctionName"
+                    formControlName="resultFunctionName"
+                  />
+                </div>
+                <div
+                  cdkDropList
+                  cdkDropListOrientation="horizontal"
+                  class="example-list"
+                  (cdkDropListDropped)="
+                    drop($event, groupQuestionFunction.resultFunciontonArray, i, functionIndex)
+                  "
+                >
+                  @for (
+                    functionElement of groupQuestionFunction.resultFunciontonArray;
+                    track functionElement
+                  ) {
+                    <div
+                      class="example-box"
+                      cdkDrag
+                    >
+                      {{ functionElement }}
+                    </div>
+                  }
+                  <div class="example-box">={{ _getValor(i, functionIndex) || 'N/A' }}</div>
+                </div>
+                <div class="result-function-content">
+                  <div class="form-control">
+                    <label for="functionAdding">Função de resultado</label>
+                    <p-autoComplete
+                      [suggestions]="groupQuestionFunction.suggestions"
+                      [multiple]="true"
+                      (completeMethod)="autoCompleteSearch($event, groupQuestionFunction)"
+                      formControlName="functionAddingField"
+                      field="presentation"
+                    />
+                  </div>
+                  <button
+                    class="success w-25"
+                    (click)="
+                      clickAddNewElementOnGroupQuestionFunction(
+                        groupQuestion,
+                        groupQuestionFunction,
+                        i,
+                        functionIndex
+                      )
+                    "
+                  >
+                    Adicionar elemento
+                  </button>
+                </div>
+              </div>
+            </app-accordion>
+          </ng-container>
+        </app-accordion>
+      </div>
+    </form>
+  </app-accordion>
+</ng-container>

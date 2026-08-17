@@ -1,0 +1,88 @@
+<header>
+  <h1>Pacientes</h1>
+  <p *ngIf="patientName">Histórico de protocolos do(a) paciente "{{ patientName }}"</p>
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    (keydown.enter)="$event.preventDefault()"
+    [formGroup]="form"
+  >
+    <div class="form-control w-50">
+      <label for="protocolId">Protocolo</label>
+      <p-dropdown
+        [options]="protocolsSelectOptions"
+        formControlName="protocolId"
+        optionLabel="name"
+        optionValue="id"
+        display="chip"
+        [showClear]="true"
+      />
+    </div>
+    <div class="form-control-group w-25">
+      <label for="requestDateStarts">Data de solicitação entre</label>
+      <div>
+        <input
+          type="date"
+          id="requestDateStarts"
+          name="requestDateStarts"
+          formControlName="requestDateStarts"
+        />
+        <label for="requestDateEnds">e</label>
+        <input
+          type="date"
+          id="requestDateEnds"
+          name="requestDateEnds"
+          formControlName="requestDateEnds"
+        />
+      </div>
+    </div>
+    <div class="form-control-group w-25">
+      <label for="answeredDateStarts">Data de resposta entre</label>
+      <div>
+        <input
+          type="date"
+          id="answeredDateStarts"
+          name="answeredDateStarts"
+          formControlName="answeredDateStarts"
+        />
+        <label for="answeredDateEnds">e</label>
+        <input
+          type="date"
+          id="answeredDateEnds"
+          name="answeredDateEnds"
+          formControlName="answeredDateEnds"
+        />
+      </div>
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <button
+      class="warn"
+      (click)="clickClean()"
+    >
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      Limpar
+    </button>
+    <button
+      class="primary"
+      (click)="clickFilter()"
+    >
+      <i class="fa-solid fa-filter"></i>
+      Buscar
+    </button>
+  </div>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="therapeuticPlanProtocolsBaseCardTableConfig">
+    <app-action-card-table [config]="viewAnswerCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

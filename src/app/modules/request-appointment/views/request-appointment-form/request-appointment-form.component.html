@@ -1,0 +1,120 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Solicitação de atendimento</h1>
+</header>
+<section class="forms">
+  <span class="title"> {{ id ? id + '' : 'Nova' }} - Solicitação de atendimento</span>
+  <form
+    *ngIf="!!form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-80">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control w-20">
+      <label for="name">Data de criação</label>
+      <input
+        type="datetime-local"
+        name="createdDate"
+        id="createdDate"
+        formControlName="createdDate"
+      />
+    </div>
+    <div class="form-control w-50">
+      <label for="email">E-mail</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+      />
+    </div>
+    <div class="form-control w-25">
+      <label for="phone1">Telefone 1</label>
+      <input
+        type="text"
+        id="phone1"
+        formControlName="phone1"
+        mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+      />
+    </div>
+    <div class="form-control w-25">
+      <label for="phone1">Telefone 2</label>
+      <input
+        type="text"
+        id="phone2"
+        formControlName="phone2"
+        mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+      />
+    </div>
+    <div class="form-control w-100">
+      <label for="problemDescription">Descrição do problema</label>
+      <p-editor
+        [readonly]="true"
+        id="problemDescription"
+        name="problemDescription"
+        [style]="{ height: '160px' }"
+        formControlName="problemDescription"
+      />
+    </div>
+    <div
+      class="form-control w-80"
+      *ngIf="form.getRawValue().userOfConclusionName"
+    >
+      <label for="phone1">Usuário de conclusão</label>
+      <input
+        type="text"
+        id="userOfConclusionName"
+        formControlName="userOfConclusionName"
+      />
+    </div>
+    <div
+      class="form-control w-20"
+      *ngIf="form.getRawValue().conclusionDate"
+    >
+      <label for="conclusionDate">Data de conclusão</label>
+      <input
+        type="datetime-local"
+        name="conclusionDate"
+        id="conclusionDate"
+        formControlName="conclusionDate"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *ngIf="!!form">
+      <ng-container *hasPermission="'solicitacoes-atendimento.conclude'">
+        <button
+          class="primary"
+          *ngIf="!form.getRawValue().conclusionDate"
+          (click)="clickConclude()"
+        >
+          <i class="fa-solid fa-check"></i>
+          Concluir
+        </button>
+      </ng-container>
+      <ng-container *hasPermission="'solicitacoes-atendimento.reopen'">
+        <button
+          class="primary"
+          *ngIf="!!form.getRawValue().conclusionDate"
+          (click)="clickReOpen()"
+        >
+          <i class="fa-solid fa-recycle"></i>
+          Reabrir
+        </button>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>

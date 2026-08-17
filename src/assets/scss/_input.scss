@@ -1,0 +1,497 @@
+@import './vars';
+@import '@ng-select/ng-select/themes/default.theme.css';
+
+fieldset.form-control,
+div.form-control,
+div.form-control-group {
+  > i,
+  fa-icon {
+    cursor: pointer;
+    color: $black;
+    height: 24px;
+    width: 24px;
+    position: relative;
+    top: -30px;
+    align-self: end;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  display: flex;
+  flex-direction: column;
+  .label,
+  label {
+    font: $text-xsm;
+    color: $black-t60;
+    margin-bottom: 2px;
+    &.info-selfend {
+      text-align: end;
+    }
+  }
+  input:not([type='checkbox']),
+  input:not([type='datetime-local']),
+  input:not([type='file']),
+  input:not([type='image']),
+  input:not([type='radio']),
+  input:not([type='range']),
+  textarea {
+    background-color: $primary-t90;
+    height: 40px;
+    width: auto;
+    padding: 8px;
+    margin: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: $primary-t90;
+    border-radius: 8px;
+    font: $text;
+    outline: none;
+    &:focus-visible {
+      outline: none;
+    }
+    &.ng-invalid {
+      border-color: $danger;
+    }
+  }
+  textarea {
+    max-width: -webkit-fill-available;
+    min-width: -webkit-fill-available;
+  }
+  &:has(input[type='checkbox']) {
+    justify-content: space-between;
+    > label:last-child {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 4px;
+      color: $black;
+      background-color: $primary-t90;
+      height: 40px;
+      padding: 8px;
+      margin: 0px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: $primary-t90;
+      border-radius: 8px;
+      font: $text;
+      outline: none;
+      cursor: pointer;
+      &:disabled {
+        cursor: default;
+      }
+      &:focus-visible {
+        outline: none;
+      }
+      > input {
+        width: 24px;
+        height: 24px;
+      }
+      &:after {
+        content: 'Não';
+      }
+      &:has(> input:checked) {
+        &:after {
+          content: 'Sim';
+        }
+      }
+    }
+  }
+
+  > p-autocomplete {
+    .p-autocomplete.p-component.p-inputwrapper.p-autocomplete-multiple {
+      .p-autocomplete-multiple-container.p-component.p-inputtext {
+        .p-autocomplete-input-token {
+          input.p-element {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  > p-dropdown,
+  > p-multiselect {
+    width: 100%;
+
+    .p-ripple.p-element.p-multiselect-item {
+      height: 40px;
+      > .p-checkbox.p-component {
+        height: 40px;
+        width: 40px;
+        padding: 8px;
+        margin: 0;
+      }
+    }
+    .p-multiselect-header {
+      .p-multiselect-filter-container {
+        width: 100%;
+        > .p-multiselect-filter.p-inputtext.p-component {
+          width: 100%;
+        }
+      }
+    }
+    > div.p-dropdown.p-component.p-inputwrapper,
+    > div.p-multiselect.p-component.p-inputwrapper {
+      width: 100%;
+      height: 40px;
+      column-gap: 4px;
+      color: $black;
+      background-color: $primary-t90;
+      border-style: solid;
+      border-width: 1px;
+      border-color: $primary-t90;
+      border-radius: 8px;
+      font: $text;
+      outline: none;
+      > span.p-element.p-dropdown-label.p-inputtext.p-dropdown-label-empty,
+      > div.p-element.p-multiselect-label-container {
+        width: 100%;
+        > div.p-multiselect-label.p-multiselect-label-empty {
+          width: 100%;
+        }
+      }
+      div.p-dropdown-trigger,
+      > div.p-multiselect-trigger {
+        width: 3rem;
+      }
+      .p-dropdown-panel {
+        li {
+          padding: 8px;
+        }
+      }
+    }
+    &.ng-invalid {
+      border-color: $danger;
+      > div.p-dropdown.p-component.p-inputwrapper,
+      > div.p-multiselect.p-component.p-inputwrapper {
+        border-color: $danger;
+      }
+    }
+  }
+  > p-autocomplete {
+    width: 100%;
+    > div {
+      > ul {
+        width: 100%;
+        max-height: 40px;
+        background-color: $primary-t90;
+        > li {
+          padding: 8px;
+          color: $black;
+          background-color: $white;
+          &:has(> input) {
+            padding: 0px;
+          }
+        }
+      }
+      > p-overlay {
+        > div {
+          > div {
+            > div {
+              > ul {
+                > li {
+                  margin: 0;
+                  padding: 8px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  p-editor {
+    &.ng-invalid {
+      .p-editor-content.ql-container.ql-snow,
+      .p-editor-toolbar.ql-toolbar.ql-snow {
+        border-color: $danger;
+      }
+    }
+  }
+  > p-calendar {
+    button {
+      width: fit-content;
+      min-height: inherit;
+      min-width: inherit;
+      border-radius: inherit;
+      border-width: inherit;
+      cursor: inherit;
+      margin: inherit;
+      padding: inherit;
+      font: $text;
+      font-weight: 800;
+      color: $black;
+      border-color: inherit;
+      background-color: inherit;
+      border-style: inherit;
+      display: inherit;
+      align-items: inherit;
+      justify-content: inherit;
+      column-gap: inherit;
+      &.p-button-text {
+        padding: 0px;
+      }
+      &:hover {
+        background-color: inherit;
+      }
+
+      &:disabled {
+        cursor: inherit;
+        background-color: inherit;
+      }
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        outline-width: inherit;
+        outline-color: inherit;
+        outline-offset: inherit;
+        outline-style: inherit;
+      }
+      border: none;
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+    }
+    width: 100%;
+    > span {
+      width: 100%;
+    }
+    calendaricon {
+      cursor: pointer;
+    }
+    .p-inputtext {
+      color: $black;
+    }
+    .p-datepicker-buttonbar {
+      justify-content: space-around;
+    }
+    .p-calendar {
+      position: relative;
+      display: inline-flex;
+      max-width: 100%;
+      .p-inputtext {
+        flex: 1 1 auto;
+        width: 1%;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .p-calendar-w-btn {
+      .p-inputtext {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .p-datepicker-trigger {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    /* Fluid */
+    .p-fluid {
+      .p-calendar {
+        display: flex;
+        .p-inputtext {
+          width: 1%;
+        }
+      }
+    }
+
+    /* Datepicker */
+    .p-calendar {
+      .p-datepicker {
+        min-width: fit-content;
+        width: 50%;
+      }
+    }
+
+    .p-datepicker {
+      width: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      .p-datepicker-group-container {
+        width: 100%;
+      }
+    }
+
+    .p-datepicker-inline {
+      display: inline-block;
+      position: static;
+      overflow-x: auto;
+    }
+
+    /* Header */
+    .p-datepicker-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .p-datepicker-title {
+        margin: 0 auto;
+        width: auto;
+      }
+    }
+
+    .p-datepicker-prev,
+    .p-datepicker-next {
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Multiple Month DatePicker */
+    .p-datepicker-multiple-month {
+      .p-datepicker-group-container {
+        display: flex;
+        .p-datepicker-group {
+          flex: 1 1 auto;
+        }
+      }
+    }
+
+    /* DatePicker Table */
+    .p-datepicker {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        > span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          margin: 0 auto;
+          overflow: hidden;
+          position: relative;
+        }
+      }
+    }
+
+    /* Month Picker */
+    .p-monthpicker-month {
+      width: 33.3%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /*  Button Bar */
+    .p-datepicker-buttonbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: auto;
+    }
+
+    /* Time Picker */
+    .p-timepicker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+
+    /* Touch UI */
+    .p-datepicker-touch-ui,
+    .p-calendar .p-datepicker-touch-ui {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 80vw;
+      transform: translate(-50%, -50%);
+    }
+
+    .p-yearpicker {
+      width: auto;
+    }
+    /* Year Picker */
+    .p-yearpicker-year {
+      width: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .p-calendar-clear-icon {
+      position: absolute;
+      top: 50%;
+      margin-top: -0.5rem;
+      cursor: pointer;
+    }
+
+    .p-datepicker-icon {
+      pointer-events: none;
+    }
+
+    .p-calendar-clearable {
+      position: relative;
+    }
+  }
+  &.open {
+    input:not([type='checkbox']),
+    input:not([type='datetime-local']),
+    input:not([type='file']),
+    input:not([type='image']),
+    input:not([type='radio']),
+    input:not([type='range']) {
+      background-color: transparent;
+      border-width: 0px 0px 3px 0px;
+      border-bottom-color: $black;
+      font: $text;
+      border-radius: 0px;
+    }
+  }
+
+  &.form-control-group {
+    display: flex;
+    justify-content: center;
+
+    label,
+    span {
+      font: $text-xsm;
+      color: $black-t60;
+      cursor: default;
+    }
+    > div {
+      width: 100%;
+      display: flex;
+      column-gap: 4px;
+      align-items: center;
+      > input {
+        width: 100%;
+      }
+    }
+  }
+}
+
+input[type='range'] {
+  accent-color: $primary;
+}

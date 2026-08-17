@@ -1,0 +1,142 @@
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+    <button
+      class="primary"
+      (click)="clickAddNewAnswerType()"
+    >
+      Adicionar novo tipo de respostas
+    </button>
+  </div>
+  <div class="onright">
+    <button
+      class="success"
+      (click)="clickSaveAndNext()"
+    >
+      Salvar
+    </button>
+  </div>
+</div>
+
+<ng-container *ngFor="let answerType of answersTypeFormGroup || []; index as i">
+  <app-accordion
+    [title]="answerType.getRawValue().name || 'Novo tipo de resposta'"
+    [isAccordionGroup]="true"
+    [componentId]="'' + i"
+    [actions]="answerTypeItemActions"
+  >
+    <form
+      (keydown.enter)="$event.preventDefault()"
+      [formGroup]="answerType"
+    >
+      <div
+        class="form-control w-80"
+      >
+        <label [for]="'answerTypeName-' + i">Nome</label>
+        <input
+          type="text"
+          [id]="'answerTypeName-' + i"
+          [name]="'answerTypeName-' + i"
+          formControlName="name"
+          minlength="10"
+          maxlength="255"
+        />
+      </div>
+      <!-- <div class="form-control w-20">
+        <label [for]="'answerValueType-' + i">Tipo da resposta</label>
+        <p-dropdown
+          [inputId]="'answerValueType-' + i"
+          [options]="answerValueTypeItems"
+          formControlName="answerValueType"
+          optionLabel="displayName"
+          [showClear]="true"
+          [filter]="true"
+        />
+      </div> -->
+      <div
+        class="form-control w-20"
+        *ngIf="canShow('formDivUseRangeAnswer', i)"
+      >
+        <label [for]="'useRangeAnswer-' + i"> Usar Intervalo de valores? </label>
+        <label [for]="'useRangeAnswer-' + i">
+          <input
+            type="checkbox"
+            [id]="'useRangeAnswer-' + i"
+            [name]="'useRangeAnswer-' + i"
+            formControlName="useRangeAnswer"
+          />
+        </label>
+      </div>
+      <fieldset class="form-control w-100">
+        <legend>Valores Aceitos</legend>
+        <p-splitter panelStyleClass="content-splitter">
+          <ng-template pTemplate>
+            <div
+              class="p-splitter-left"
+              (keyup.enter)="clickAddAcceptedValue(i)"
+              *ngIf="canShow('pSplitterAcceptedValueForm', i)"
+            >
+              <div class="form-control">
+                <label for="acceptedValue">Valor</label>
+                <input
+                  type="text"
+                  id="acceptedValue"
+                  name="acceptedValue"
+                  formControlName="editingAcceptableValueValue"
+                />
+              </div>
+              <div class="form-control">
+                <label for="acceptedValuePresentation">Apresentação</label>
+                <input
+                  type="text"
+                  id="acceptedValuePresentation"
+                  name="acceptedValuePresentation"
+                  formControlName="editingAcceptableValuePresentation"
+                />
+              </div>
+              <button
+                type="button"
+                class="success"
+                (click)="clickAddAcceptedValue(i)"
+              >
+                Adicionar
+              </button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate>
+            <p-orderList
+              class="p-splitter-right"
+              [value]="this.answersTypeFormGroup[i].getRawValue().acceptableValues"
+              [listStyle]="{ 'max-height': '30rem' }"
+              header="Lista de valores aceitos"
+              [dragdrop]="true"
+              [id]="'orderListValues-' + i"
+            >
+              <ng-template
+                let-acceptedValue
+                pTemplate="item"
+              >
+                <div class="order-list-item">
+                  <div>
+                    <span>({{ acceptedValue.value }}) - {{ acceptedValue.presentation }}</span>
+                  </div>
+                  <div>
+                    <i
+                      class="fa-solid fa-trash-can"
+                      (click)="clickRemoveOrderListItem(i, acceptedValue)"
+                    ></i>
+                  </div>
+                </div>
+              </ng-template>
+            </p-orderList>
+          </ng-template>
+        </p-splitter>
+      </fieldset>
+    </form>
+  </app-accordion>
+</ng-container>

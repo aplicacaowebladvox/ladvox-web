@@ -1,0 +1,23 @@
+#root {
+  display: flex;
+  align-items: flex-start;
+
+  > #content {
+    margin-left: 344px;
+    flex-basis: 100%;
+    max-width: 100%;
+    min-width: 27rem;
+    overflow-y: clip;
+
+    > div {
+       min-height: calc(100vh - 11.6rem);
+       padding: 12px;
+    }
+  }
+
+  &:has(app-sidebar>aside.collapsed) {
+    > #content {
+      margin-left: 60px;
+    }
+  }
+}

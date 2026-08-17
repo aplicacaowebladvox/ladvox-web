@@ -1,0 +1,189 @@
+@import './../../../../../assets/scss/vars';
+
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 8px;
+  > div#filter {
+    background-color: $white;
+    border-color: $white;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    cursor: pointer;
+
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 4px;
+    > span.order-priority-number {
+      color: $white;
+      width: $font-size * 1px;
+      height: $font-size * 1px;
+      font-size: 0.8em;
+      background-color: $black;
+      padding: 2px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:hover {
+      background-color: $primary;
+      border-color: $primary;
+      color: $white;
+      > span.order-priority-number {
+        color: $black;
+        background-color: $white;
+      }
+    }
+  }
+}
+#body {
+  background-color: $white;
+  border-color: $white;
+
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  min-inline-size: min-content;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $white;
+  border-image: initial;
+  padding: 12px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 12px;
+
+  &.clickable {
+    cursor: pointer;
+    &:hover {
+      background-color: $primary-t70;
+      border-color: $primary-t70;
+    }
+  }
+
+  > legend#actions {
+    margin-left: auto;
+    display: flex;
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      min-height: 24px;
+
+      > span {
+        display: none;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+        column-gap: 4px;
+        i,
+        svg {
+          color: $primary;
+        }
+        > span {
+          display: inline;
+        }
+      }
+    }
+  }
+
+  > div#card-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    // &.clickable {
+    // }
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      > span {
+        cursor: default;
+        &.label {
+          font: $text-xsm;
+          color: $black-t60;
+        }
+        &.data {
+          font: $text;
+          color: $black-t10;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > #data-size {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+.w-100 {
+  width: 100%;
+}
+.w-85 {
+  width: calc(85% - 8px);
+}
+.w-80 {
+  width: calc(80% - 8px);
+}
+.w-75 {
+  width: calc(75% - 8px);
+}
+.w-70 {
+  width: calc(70% - 8px);
+}
+.w-65 {
+  width: calc(65% - 8px);
+}
+.w-50 {
+  width: calc(50% - 8px);
+}
+.w-40 {
+  width: calc(40% - 8px);
+}
+.w-35 {
+  width: calc(35% - 8px);
+}
+.w-33 {
+  width: calc(33% - 8px);
+}
+.w-30 {
+  width: calc(30% - 8px);
+}
+.w-25 {
+  width: calc(25% - 8px);
+}
+.w-20 {
+  width: calc(20% - 8px);
+}
+.w-15 {
+  width: calc(15% - 8px);
+}
+.w-10 {
+  width: calc(10% - 8px);
+}

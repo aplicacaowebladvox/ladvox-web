@@ -1,0 +1,35 @@
+@import './../../../../assets/scss/vars';
+.choose-therapist-container {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 24px;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 12px;
+    border-radius: 8px;
+    > div {
+      display: flex;
+      flex-direction: column;
+      > .current-editor {
+        text-align: end;
+      }
+    }
+    &:hover {
+      background-color: $primary-t50;
+      cursor: pointer;
+    }
+    &.current-editor {
+      background-color: $secondary-t50;
+      cursor: not-allowed;
+      &:hover {
+        background-color: $secondary-t50;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

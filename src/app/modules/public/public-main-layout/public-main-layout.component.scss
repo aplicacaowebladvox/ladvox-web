@@ -1,0 +1,124 @@
+@import './../../../../assets/scss/vars';
+div.container {
+  display: flex;
+  flex-direction: column;
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0px;
+    background-color: white;
+    > div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $white;
+      > aside {
+        img {
+          height: 100px;
+          width: auto;
+        }
+      }
+    }
+    > hr {
+      width: 99%;
+      color: $primary;
+      margin: 0;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $primary;
+      border-radius: 8px;
+    }
+    > .fast-options {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      background-color: $white;
+      padding: 8px;
+      > ul {
+        display: flex;
+        gap: 24px;
+        > li {
+          > a {
+            &.button {
+              text-decoration: none;
+            }
+            &:not(.button) {
+              color: $secondary;
+              text-decoration: none;
+              font: $heading6;
+            }
+          }
+          &:hover {
+            > a {
+              &:not(.button) {
+                color: $primary;
+              }
+              &.button {
+                background-color: $primary-t10;
+                border-color: $primary-t10;
+                color: $white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  footer {
+    padding: 12px;
+    gap: 8px;
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    .social-medias {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      ul {
+        display: flex;
+        gap: 8px;
+        li {
+          a {
+            color: $black;
+            &:hover {
+              color: $primary;
+            }
+            i {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+      > div {
+        display: flex;
+        gap: 8px;
+        img {
+          height: 48px;
+        }
+      }
+    }
+    hr {
+      color: $primary;
+      margin: 0;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $primary;
+      border-radius: 8px;
+    }
+    .contacts {
+      font: $text-sm;
+    }
+  }
+  #dev-information {
+    margin: 0;
+    padding: 0;
+    font: $text-xsm;
+    > p {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

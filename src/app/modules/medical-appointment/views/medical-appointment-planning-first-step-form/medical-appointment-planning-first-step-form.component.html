@@ -1,0 +1,89 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Planejamento de atendimento</h1>
+  <p>
+    Dados básicos do Planejamento{{
+      form && form.getRawValue() && form.getRawValue().name
+        ? ' "' + form.getRawValue().name + '"'
+        : ''
+    }}
+  </p>
+</header>
+
+<app-tab
+  *ngIf="form && tabItems"
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+
+<div class="actions">
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+  </div>
+  <div class="onright">
+    <ng-container *hasPermission="'atendimento.planejamento-atendimento.form.edit'">
+      <button
+        *ngIf="editing"
+        class="success"
+        (click)="clickSave()"
+      >
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'atendimento.planejamento-atendimento.form.new'">
+      <button
+        *ngIf="!id"
+        class="success"
+        (click)="clickSave()"
+      >
+        Criar
+      </button>
+    </ng-container>
+    <button
+      *ngIf="form && form.getRawValue() && form.getRawValue().nextStepIsEnable"
+      class="success"
+      (click)="clickContinue()"
+    >
+      Continuar
+    </button>
+  </div>
+</div>
+<section class="forms">
+  <span class="title"> {{ id ? id + '' : 'Novo' }} - Planejamento de atendimento</span>
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-70">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control-group w-30">
+      <label for="initialValidity">Validade de</label>
+      <div>
+        <input
+          type="date"
+          id="initialValidity"
+          name="initialValidity"
+          formControlName="initialValidity"
+        />
+        <label for="finalValidity">à</label>
+        <input
+          type="date"
+          id="finalValidity"
+          name="finalValidity"
+          formControlName="finalValidity"
+        />
+      </div>
+    </div>
+  </form>
+</section>

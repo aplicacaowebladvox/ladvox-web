@@ -1,0 +1,49 @@
+<ng-container *hasPermission="'atendimento.plano-terapeutico.form.novo-protocolo'">
+  <section
+    *ngIf="editing"
+    class="forms"
+  >
+    <span class="title">Adicionar</span>
+    <form
+      *ngIf="form"
+      [formGroup]="form"
+      class="forms"
+    >
+      <div class="form-control w-75">
+        <label for="protocolId">Protocolo</label>
+        <p-dropdown
+          [options]="protocolSelectOptions"
+          optionLabel="name"
+          optionValue="id"
+          display="chip"
+          formControlName="protocolId"
+          [showClear]="true"
+        />
+      </div>
+      <div class="form-control w-25">
+        <label for="requestDate">Data de solicitação</label>
+        <input
+          type="datetime-local"
+          name="requestDate"
+          id="requestDate"
+          formControlName="requestDate"
+        />
+      </div>
+    </form>
+    <div class="actions">
+      <button
+        class="primary"
+        (click)="clickAdd()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </div>
+  </section>
+</ng-container>
+<section>
+  <app-card-table [cardTableConfig]="therapeuticPlanProtocolsBaseCardTableConfig">
+    <app-action-card-table [config]="viewAnswerCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="cancelRequestCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

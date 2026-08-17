@@ -1,0 +1,158 @@
+<header>
+  <h1>Pacientes</h1>
+  <p *ngIf="isReady">
+    Protocolo "{{ protocol.name }}" do "{{ patient.name }}" respondido em
+    {{ ConvertUtils.dateToString(protocolTherapeuticPlan.answeredDate) }}
+  </p>
+</header>
+<section
+  class="forms"
+  *ngIf="protocol.description"
+>
+  <div>{{ protocol.description }}</div>
+</section>
+
+<section *ngIf="protocol">
+  <table class="mj-table">
+    <tr class="head">
+      <td
+        class="head"
+        [rowSpan]="someAnswerTypeHasName(protocol) ? 2 : 1"
+      >
+        Pergunta
+      </td>
+      <ng-container *ngIf="someAnswerTypeHasName(protocol)">
+        <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+          <td class="head separator"></td>
+          <td
+            class="head"
+            [attr.colspan]="answerType.useRangeAnswer ? 1 : answerType.acceptableValues.length"
+          >
+            {{ answerType.name }}
+          </td>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="!someAnswerTypeHasName(protocol)">
+        <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+          <td class="head separator"></td>
+          <ng-container *ngIf="answerType.useRangeAnswer">
+            <td class="rangevalue">
+              <div>
+                <span
+                  *ngFor="
+                    let acceptableValue of answerType.acceptableValues;
+                    index as acceptableValueIndex
+                  "
+                >
+                  {{ acceptableValue.presentation || acceptableValue.value }}
+                </span>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="!answerType.useRangeAnswer">
+            <td
+              class="head center"
+              *ngFor="
+                let acceptableValue of answerType.acceptableValues;
+                index as acceptableValueIndex
+              "
+            >
+              {{ acceptableValue.presentation || acceptableValue.value }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+    <tr
+      class="head min-text-size"
+      *ngIf="someAnswerTypeHasName(protocol)"
+    >
+      <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+        <td class="head separator"></td>
+        <ng-container
+          *ngFor="let acceptableValue of answerType.acceptableValues; index as acceptableValueIndex"
+        >
+          <td class="head center">
+            {{ acceptableValue.presentation || acceptableValue.value }}
+          </td>
+        </ng-container>
+      </ng-container>
+    </tr>
+    <tbody>
+      <ng-container *ngFor="let question of protocol.questions; index as questionIndex">
+        <tr>
+          <td>{{ question.question }}</td>
+
+          <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+            <td class="separator"></td>
+            <ng-container *ngIf="!answerType.useRangeAnswer">
+              <ng-container
+                *ngFor="
+                  let acceptableValue of answerType.acceptableValues;
+                  index as acceptableValueIndex
+                "
+              >
+                <td class="button-content">
+                  <span>
+                    <button
+                      [class.active]="isSelected(question, answerType, acceptableValue.value)"
+                      (click)="clickSelect(question, answerType, acceptableValue.value)"
+                    >
+                      {{ acceptableValue.presentation || acceptableValue.value }}
+                    </button>
+                  </span>
+                </td>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="answerType.useRangeAnswer">
+              <td>
+                <span>
+                  <input
+                    [ngModel]="value(question, answerType)"
+                    (ngModelChange)="changeValue(question, answerType, $event)"
+                    type="range"
+                    class="slider"
+                    name=""
+                    id=""
+                    [min]="answerType.acceptableValues[0].value"
+                    [max]="
+                      answerType.acceptableValues[answerType.acceptableValues.length - 1].value
+                    "
+                    [step]="0.25"
+                  />
+                </span>
+              </td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>
+
+<section style="margin-bottom: 12px;">
+  <app-protocol-calculator
+    #calculator
+    [protocol]="this.protocol"
+  ></app-protocol-calculator>
+</section>
+
+<section class="forms">
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <button
+      class="primary"
+      (click)="clickSave()"
+    >
+      <i class="fa-solid fa-floppy-disk"></i>
+      Salvar
+    </button>
+  </div>
+</section>

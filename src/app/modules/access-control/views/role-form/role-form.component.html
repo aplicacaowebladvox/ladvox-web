@@ -1,0 +1,72 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Papéis de usuário</h1>
+</header>
+<section class="forms">
+  <span class="title"> {{ id ? id + '' : 'Novo' }} - Papel</span>
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-80">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control w-20">
+      <label for="showOnLandingPage"> Mostrar na Landing Page? </label>
+      <label for="showOnLandingPage">
+        <input
+          type="checkbox"
+          id="showOnLandingPage"
+          name="showOnLandingPage"
+          formControlName="showOnLandingPage"
+        />
+      </label>
+    </div>
+    <div class="form-control w-100">
+      <label for="permissions">Funções</label>
+      <p-multiSelect
+        [options]="permissionsAvailablesSelectOptions"
+        formControlName="permissionsIds"
+        optionLabel="name"
+        optionValue="id"
+        display="chip"
+        [showClear]="true"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasPermission="'controle-acesso.papeis.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!id && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'controle-acesso.papeis.form.new'">
+      <button
+        class="primary"
+        *ngIf="!id"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+  </div>
+</section>

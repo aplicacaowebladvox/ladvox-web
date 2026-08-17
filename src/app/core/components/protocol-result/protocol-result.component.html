@@ -1,0 +1,58 @@
+<div *ngIf="protocolCalculated">
+  <h4>Resultados</h4>
+  <div class="results">
+    <div
+      *ngIf="protocolCalculated.functions && protocolCalculated.functions.length > 0"
+      class="result-container"
+    >
+      <h5>Visão Geral</h5>
+      <div class="result-at-container">
+        <div
+          *ngFor="let answerType of protocolCalculated.answersType; index as answerIndex"
+          class="result-at"
+        >
+          <span>{{ answerType.name || answerType.sequence }}</span>
+          <span>{{ getValuePresentation(protocolCalculated.functions) }}</span>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngFor="let group of protocolCalculated.groups">
+      <div
+        *ngIf="group.groupFunctions"
+        class="result-container"
+      >
+        <h5>{{ group.groupName }}</h5>
+        <div class="result-at-container">
+          <ng-container *ngIf="protocolCalculated.answersType.length > 1">
+            <div
+              *ngFor="let answerType of protocolCalculated.answersType; index as answerIndex"
+              class="result-at"
+            >
+              <span>{{ answerType.name || answerType.sequence }}:&nbsp;</span>
+              <span>{{ getValuePresentation(group.groupFunctions, answerType) }}</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="protocolCalculated.answersType.length == 1">
+            <span class="center">{{ getValuePresentation(group.groupFunctions) }}</span>
+          </ng-container>
+        </div>
+        <div
+          class="group-base-results"
+          *ngIf="group.groupBaseResults && group.groupBaseResults.length > 0"
+        >
+          <div
+            class="base-result"
+            *ngFor="let baseResult of group.groupBaseResults"
+          >
+            <span>{{ baseResult.name }}:&nbsp;</span>
+            <span>{{
+              baseResult.isRange
+                ? baseResult.initialValue + ' à ' + baseResult.finalValue
+                : baseResult.initialValue
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

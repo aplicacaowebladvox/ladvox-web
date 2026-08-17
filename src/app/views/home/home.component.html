@@ -1,0 +1,126 @@
+<header>
+  <h1 *ngIf="greetings">{{ greetings }}</h1>
+  <p>Seja bem vindo(a)</p>
+</header>
+
+<ng-container *notHasRole="'Paciente'">
+  @defer {
+    <section
+      class="forms next-sessions"
+      *ngIf="nextSession && nextSession.daysSessions && nextSession.daysSessions.length > 0"
+    >
+      <span
+        class="title clickable"
+        [pTooltip]="'Atualizar'"
+        tooltipPosition="top"
+        (click)="refreshNextSessions()"
+        >Próximas sessões</span
+      >
+      <div class="body">
+        <ng-container *ngFor="let daysSession of nextSession.daysSessions">
+          <div class="weekday">
+            <span class="title">{{ displayName(daysSession.weekday) || 'Próximo' }}</span>
+            <div class="body">
+              <div
+                *ngFor="let session of daysSession.sessions"
+                class="session"
+              >
+                <span class="patient">{{ session.patientName }}</span>
+                <div>
+                  <span class="hour">{{ session.sessionHour }}</span>
+                  <span class="room">{{ session.sessionRoom }}</span>
+                </div>
+                <span class="therapists">{{ session.therapistsTeamDescription }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader [theme]="{ height: '200px' }" />
+  }
+  <section class="forms notifications-container">
+    <span
+      class="title clickable"
+      [pTooltip]="'Atualizar'"
+      tooltipPosition="top"
+      (click)="refreshNotifications()"
+      >Notificações
+    </span>
+    <span
+      *ngIf="!!notifications && notifications.length == 0"
+      class="not-found"
+    >
+      Sem notificações
+    </span>
+    <ul>
+      @defer {
+        <ng-container *ngFor="let notification of notifications">
+          <li [class]="notification.markAsRead ? 'read' : ''">
+            <span
+              class="text-of-notification"
+              [innerHTML]="notification.notification"
+            ></span>
+            <i
+              (click)="markNotificationAsRead(notification.id)"
+              class="fa-solid fa-envelope{{ !notification.markAsRead ? '-open' : '' }}"
+            ></i>
+            <i
+              (click)="deleteNotification(notification.id)"
+              class="fa-solid fa-trash"
+            ></i>
+          </li>
+        </ng-container>
+      } @placeholder (minimum 1000ms) {
+        <ngx-skeleton-loader
+          count="3"
+          [theme]="{ height: '30px' }"
+        />
+      }
+    </ul>
+  </section>
+  <section
+    class="forms"
+    *ngIf="false"
+  >
+    <span class="title">Avisos</span>
+    <ul>
+      <li>Aviso programado aqui</li>
+    </ul>
+  </section>
+
+  @defer {
+    <section
+      class="forms"
+      *ngIf="fastActions"
+    >
+      <span class="title">Ações rápidas</span>
+      <div class="fast-actions-container">
+        <ng-container *ngFor="let action of flatFastActions">
+          <div
+            class="fast-action"
+            (click)="clickFastAction(action)"
+          >
+            <i [class]="action.iconClass"></i>
+            <span>{{ action.name }}</span>
+          </div>
+        </ng-container>
+      </div>
+      <div
+        class="actions"
+        *ngIf="false"
+      >
+        <button class="primary">
+          <i class="fa-solid fa-pencil"></i>
+          Editar
+        </button>
+      </div>
+    </section>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader
+      count="3"
+      [theme]="{ height: '200px' }"
+    />
+  }
+</ng-container>

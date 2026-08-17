@@ -1,0 +1,75 @@
+@import './../../../../../../assets/scss/vars';
+.comment-box {
+  height: 68dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comments-show {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 8px;
+  overflow: auto;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.new-comment {
+  width: 100%;
+  display: flex;
+  border-radius: 8px;
+  > div {
+    width: 95%;
+    background-color: $white;
+    border-radius: 8px;
+    > textarea {
+      background-color: $white;
+      width: 100%;
+      height: auto;
+      resize: none;
+    }
+  }
+  > button {
+    font-size: 40px;
+    width: 5%;
+    height: auto;
+    border-style: none;
+  }
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  > div {
+    &:first-child {
+      display: flex;
+      gap: 4px;
+      > span {
+        width: auto;
+        height: auto;
+        background-color: $primary-t50;
+        border-radius: 8px;
+        padding: 4px;
+      }
+    }
+  }
+  &.on-right {
+    margin-left: 25%;
+    width: 75%;
+    > div {
+      &:first-child {
+        flex-direction: row-reverse;
+        gap: 4px;
+        > span {
+          background-color: $secondary-t50;
+        }
+      }
+      &:last-child {
+        text-align: end;
+      }
+    }
+  }
+}

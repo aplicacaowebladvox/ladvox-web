@@ -1,0 +1,10 @@
+._row {
+  display: flex;
+  gap: 12px;
+  ._col {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}

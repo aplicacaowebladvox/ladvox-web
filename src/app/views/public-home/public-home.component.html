@@ -1,0 +1,47 @@
+<div class="content">
+  <section *ngFor="let article of articles">
+    <h1>{{ article.title }}</h1>
+    <div [innerHTML]="article.article"></div>
+  </section>
+  <div class="side-by-side">
+    <section class="click-to-know">
+      <h1>Conheça</h1>
+      <ul>
+        <li>
+          <a (click)="goTo('equipe')">
+            <i class="fa-solid fa-users-viewfinder"></i>
+            <span>Equipe</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goTo('projetos')">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Projetos</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goTo('publicacoes')">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Publicações</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section class="with-map">
+      <h1>Localização</h1>
+      @defer {
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3742.0171589689426!2d-40.31850642476321!3d-20.299556881173512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb83d66fb6a25c5%3A0x2d495d362e42c51a!2sAv.%20Mal.%20Campos%2C%201468%20-%20Maru%C3%ADpe%2C%20Vit%C3%B3ria%20-%20ES%2C%2029047-105!5e0!3m2!1spt-BR!2sbr!4v1726754992854!5m2!1spt-BR!2sbr"
+          height="400px"
+          width="100%"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      } @placeholder (minimum 1000ms) {
+        <ngx-skeleton-loader [theme]="{ height: '400px' }" />
+      }
+    </section>
+  </div>
+</div>

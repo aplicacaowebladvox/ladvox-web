@@ -1,0 +1,112 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Redes sociais</h1>
+  <p>Redes sociais apresentadas na landing page</p>
+</header>
+<section
+  class="forms"
+  *ngIf="!!form"
+>
+  <span class="title"> {{ id ? id + '' : 'Nova' }} - Rede social</span>
+  <form [formGroup]="form">
+    <div class="form-control w-70">
+      <label for="title">Título</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+      />
+    </div>
+    <div class="form-control w-10">
+      <label for="iconColor">Cor do ícone</label>
+      <input
+        type="color"
+        id="iconColor"
+        formControlName="iconColor"
+      />
+    </div>
+    <div class="form-control w-20">
+      <label for="iconClass">Ícone</label>
+      <p-dropdown
+        inputId="iconClass"
+        [options]="iconClassAvailableSelectOptions"
+        formControlName="iconClass"
+        optionLabel="name"
+        optionValue="id"
+        [showClear]="true"
+        [filter]="true"
+      >
+        <ng-template pTemplate="selectedItem">
+          <div
+            class="flex align-items-center gap-2"
+            *ngIf="form.getRawValue().iconClass"
+          >
+            <i
+              style="font-size: 16px"
+              [class]="'' + form.getRawValue().iconClass"
+            ></i>
+          </div>
+        </ng-template>
+        <ng-template
+          let-icon
+          pTemplate="item"
+        >
+          <div class="flex align-items-center gap-2">
+            <i
+              style="font-size: 24px"
+              [class]="'' + icon.id"
+            ></i>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="form-control w-100">
+      <label for="url">URL</label>
+      <input
+        type="text"
+        id="url"
+        formControlName="url"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasPermission="'configuracao-sistema.redes-sociais.delete'">
+      <button
+        class="secondary"
+        *ngIf="!!id && editing"
+        (click)="clickRemove()"
+      >
+        <i class="fa-solid fa-trash-can"></i>
+        Remover
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'configuracao-sistema.redes-sociais.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!id && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'configuracao-sistema.redes-sociais.form.new'">
+      <button
+        class="primary"
+        *ngIf="!id"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+  </div>
+</section>

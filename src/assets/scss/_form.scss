@@ -1,0 +1,103 @@
+form {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 8px;
+  justify-content: space-evenly;
+  div,
+  fieldset {
+    width: inherit;
+    &.w-100 {
+      width: 100%;
+    }
+
+    &.w-90 {
+      width: calc(90% - 8px);
+    }
+
+    &.w-80 {
+      width: calc(80% - 8px);
+    }
+
+    &.w-75 {
+      width: calc(75% - 8px);
+    }
+
+    &.w-70 {
+      width: calc(70% - 8px);
+    }
+
+    &.w-65 {
+      width: calc(65% - 8px);
+    }
+
+    &.w-60 {
+      width: calc(60% - 8px);
+    }
+
+    &.w-55 {
+      width: calc(55% - 8px);
+    }
+
+    &.w-50 {
+      width: calc(50% - 8px);
+    }
+
+    &.w-45 {
+      width: calc(45% - 8px);
+    }
+
+    &.w-40 {
+      width: calc(40% - 8px);
+    }
+
+    &.w-35 {
+      width: calc(35% - 8px);
+    }
+
+    &.w-30 {
+      width: calc(30% - 8px);
+    }
+
+    &.w-25 {
+      width: calc(25% - 8px);
+    }
+
+    &.w-20 {
+      width: calc(20% - 8px);
+    }
+
+    &.w-15 {
+      width: calc(15% - 8px);
+    }
+
+    &.w-10 {
+      width: calc(10% - 8px);
+    }
+
+    &.w-5 {
+      width: calc(5% - 8px);
+    }
+
+    &:last-child &:not(:first-child) {
+      margin-right: auto;
+    }
+  }
+}
+
+fieldset {
+  > div {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    column-gap: 8px;
+    justify-content: space-evenly;
+    > button {
+      min-height: 40px;
+      height: 40px;
+      margin-top: auto;
+    }
+  }
+}

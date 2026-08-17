@@ -1,0 +1,49 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Plano terapêutico</h1>
+  <!-- <p>Listagem de pacientes do sistema</p> -->
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    (keydown.enter)="$event.preventDefault()"
+    [formGroup]="form"
+  >
+    <div class="form-control w-100">
+      <label for="patientId">Paciente</label>
+      <p-dropdown
+        [options]="patientsSelectOptions"
+        formControlName="patientId"
+        optionLabel="name"
+        optionValue="id"
+        display="chip"
+        [showClear]="true"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      (click)="clickClean()"
+    >
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      Limpar
+    </button>
+    <button
+      class="primary"
+      (click)="clickFilter()"
+    >
+      <i class="fa-solid fa-filter"></i>
+      Buscar
+    </button>
+  </div>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="therapeuticPlanBaseCardTable">
+    <app-action-card-table [config]="takeOverAsEditorCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="resignAsEditorCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="changeEditorCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="editCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="viewCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

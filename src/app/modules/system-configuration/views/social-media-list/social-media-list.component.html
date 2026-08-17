@@ -1,0 +1,91 @@
+<header>
+  <h1>Redes sociais</h1>
+  <p>Redes sociais apresentadas na landing page</p>
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    *ngIf="!!form"
+    (keydown.enter)="$event.preventDefault()"
+    [formGroup]="form"
+  >
+    <div class="form-control w-80">
+      <label for="title">Título</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        formControlName="title"
+      />
+    </div>
+    <div class="form-control w-20">
+      <label for="iconClass">Ícone</label>
+      <p-dropdown
+        inputId="iconClass"
+        [options]="iconClassAvailableSelectOptions"
+        formControlName="iconClass"
+        optionLabel="name"
+        optionValue="id"
+        [showClear]="true"
+        [filter]="true"
+      >
+        <ng-template pTemplate="selectedItem">
+          <div
+            class="flex align-items-center gap-2"
+            *ngIf="form.getRawValue().iconClass"
+          >
+            <i
+              style="font-size: 16px"
+              [class]="'' + form.getRawValue().iconClass"
+            ></i>
+          </div>
+        </ng-template>
+        <ng-template
+          let-icon
+          pTemplate="item"
+        >
+          <div class="flex align-items-center gap-2">
+            <i
+              style="font-size: 24px"
+              [class]="'' + icon.id"
+            ></i>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      (click)="clickClean()"
+    >
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      Limpar
+    </button>
+    <button
+      class="primary"
+      (click)="clickFilter()"
+    >
+      <i class="fa-solid fa-filter"></i>
+      Buscar
+    </button>
+  </div>
+</section>
+<section class="actions">
+  <ng-container *hasPermission="'configuracao-sistema.redes-sociais.form.new'">
+    <button
+      class="success"
+      (click)="clickAddNew()"
+    >
+      <i class="fa-solid fa-circle-plus"></i>
+      Novo
+    </button>
+  </ng-container>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="systemSocialMediaBaseCardTableConfig">
+    <app-action-card-table [config]="editCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="viewCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="removeCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

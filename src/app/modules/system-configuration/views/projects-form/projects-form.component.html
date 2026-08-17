@@ -1,0 +1,88 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Projetos</h1>
+  <!-- <p>Redes sociais apresentadas na landing page</p> -->
+</header>
+<section class="forms">
+  <span class="title"> {{ id ? id + '' : 'Novo' }} - Projeto</span>
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-100">
+      <label for="title">Título</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+      />
+    </div>
+    <div class="form-control w-50">
+      <label for="status">Situação</label>
+      <input
+        type="text"
+        id="status"
+        formControlName="status"
+      />
+    </div>
+    <div class="form-control w-50">
+      <label for="type">Tipo</label>
+      <input
+        type="text"
+        id="type"
+        formControlName="type"
+      />
+    </div>
+    <div class="form-control w-100">
+      <div class="form-control w-100">
+        <p-editor
+          id="description"
+          name="description"
+          [style]="{ height: '160px' }"
+          formControlName="description"
+          [readonly]="form.disabled"
+        />
+      </div>
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasPermission="'configuracao-sistema.projetos.delete'">
+      <button
+        class="secondary"
+        *ngIf="!!id && editing"
+        (click)="clickRemove()"
+      >
+        <i class="fa-solid fa-trash-can"></i>
+        Remover
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'configuracao-sistema.projetos.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!id && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'configuracao-sistema.projetos.form.new'">
+      <button
+        class="primary"
+        *ngIf="!id"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+  </div>
+</section>

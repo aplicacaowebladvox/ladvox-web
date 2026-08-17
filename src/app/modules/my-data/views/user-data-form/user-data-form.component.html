@@ -1,0 +1,307 @@
+<header>
+  <h1>Meus dados</h1>
+</header>
+
+<section
+  *ngIf="form && genderSelectOptions && educationSelectOptions"
+  class="forms"
+>
+  <form [formGroup]="form">
+    <div class="_row">
+      <app-profile-image-updater
+        [profileImage]="form.getRawValue().profileImage"
+        [userName]="form.getRawValue().name"
+        [userId]="form.getRawValue().userId"
+      />
+      <div class="_col">
+        <div class="form-control w-100">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-control w-100">
+          <label for="document">Documento</label>
+          <input
+            type="text"
+            mask="000.000.000-00"
+            formControlName="document"
+          />
+        </div>
+        <div class="form-control w-50">
+          <label for="birthDate">Data de nascimento</label>
+          <input
+            type="date"
+            id="birthDate"
+            formControlName="birthDate"
+          />
+        </div>
+        <div class="form-control w-50">
+          <label for="age">Idade</label>
+          <input
+            type="text"
+            [disabled]="true"
+            [value]="age(form.getRawValue().birthDate)"
+          />
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="form.getRawValue().id">
+      <div
+        class="form-control {{
+          form.getRawValue().genderSelected &&
+          form.getRawValue().genderSelected.extraAttribute == true
+            ? 'w-25'
+            : 'w-50'
+        }}"
+      >
+        <label for="gender">Gênero</label>
+        <p-dropdown
+          inputId="gender"
+          [options]="genderSelectOptions"
+          formControlName="genderSelected"
+          optionLabel="name"
+          [showClear]="true"
+          [filter]="true"
+        />
+      </div>
+      <div
+        class="form-control w-25"
+        *ngIf="
+          form.getRawValue().genderSelected &&
+          form.getRawValue().genderSelected.extraAttribute == true
+        "
+      >
+        <label for="otherGenderDefinition">Definição do genêro</label>
+        <input
+          type="text"
+          id="otherGenderDefinition"
+          formControlName="otherGenderDefinition"
+        />
+      </div>
+      <div
+        class="form-control {{
+          form.getRawValue().educationSelected &&
+          form.getRawValue().educationSelected.extraAttribute == true
+            ? 'w-25'
+            : 'w-50'
+        }}"
+      >
+        <label for="education">Escolaridade</label>
+        <p-dropdown
+          inputId="education"
+          [options]="educationSelectOptions"
+          formControlName="educationSelected"
+          optionLabel="name"
+          [showClear]="true"
+          [filter]="true"
+        />
+      </div>
+      <div
+        class="form-control w-25"
+        *ngIf="
+          form.getRawValue().educationSelected &&
+          form.getRawValue().educationSelected.extraAttribute == true
+        "
+      >
+        <label for="otherEducationDefinition">Definição da escolaridade</label>
+        <input
+          type="text"
+          id="otherEducationDefinition"
+          formControlName="otherEducationDefinition"
+        />
+      </div>
+      <div class="form-control w-50">
+        <label for="nationalHealthCard">Carteira Nacional de Saúde</label>
+        <input
+          type="text"
+          formControlName="nationalHealthCard"
+        />
+      </div>
+      <div class="form-control w-{{ form.getRawValue().hasMedicalRecord ? '20' : '50' }}">
+        <label for="hasMedicalRecord"> Possui número de prontuário? </label>
+        <label for="hasMedicalRecord">
+          <input
+            type="checkbox"
+            id="hasMedicalRecord"
+            name="hasMedicalRecord"
+            formControlName="hasMedicalRecord"
+          />
+        </label>
+      </div>
+      <div
+        *ngIf="form.getRawValue().hasMedicalRecord"
+        class="form-control w-30"
+      >
+        <label for="medicalRecord">Número de prontuário</label>
+        <input
+          type="text"
+          formControlName="medicalRecord"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="profession">Profissão</label>
+        <input
+          type="text"
+          formControlName="profession"
+        />
+      </div>
+      <fieldset class="form-control w-100">
+        <legend>Contatos</legend>
+        <div class="form">
+          <div class="form-control w-25">
+            <label for="mainPhone">Telefone principal</label>
+            <input
+              type="tel"
+              name="mainPhone"
+              id="mainPhone"
+              formControlName="mainPhone"
+              mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+            />
+          </div>
+          <div class="form-control w-25">
+            <label for="phoneSecundary">Telefone secundário</label>
+            <input
+              type="tel"
+              name="phoneSecundary"
+              id="phoneSecundary"
+              formControlName="phoneSecundary"
+              mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+            />
+          </div>
+          <div class="form-control w-50">
+            <label for="phoneObservation">Observações</label>
+            <input
+              type="text"
+              name="phoneObservation"
+              id="phoneObservation"
+              formControlName="phoneObservation"
+            />
+          </div>
+          <div class="form-control w-25">
+            <label for="mainMail">E-mail principal</label>
+            <input
+              type="email"
+              name="mainMail"
+              id="mainMail"
+              formControlName="mainMail"
+            />
+          </div>
+          <div class="form-control w-25">
+            <label for="mailSecundary">E-mail secundário</label>
+            <input
+              type="email"
+              name="mailSecundary"
+              id="mailSecundary"
+              formControlName="mailSecundary"
+            />
+          </div>
+          <div class="form-control w-50">
+            <label for="mailObservation">Observações</label>
+            <input
+              type="text"
+              name="mailObservation"
+              id="mailObservation"
+              formControlName="mailObservation"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-control w-100">
+        <legend>Endereço</legend>
+        <form
+          *ngIf="form.getRawValue().addressForm"
+          [formGroup]="form.getRawValue().addressForm"
+          class="form"
+        >
+          <div class="form-control w-20">
+            <label for="country">País</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              formControlName="country"
+            />
+          </div>
+          <div class="form-control w-15">
+            <label for="zipCode">CEP</label>
+            <input
+              type="text"
+              name="zipCode"
+              id="zipCode"
+              mask="90.000-000"
+              formControlName="zipCode"
+            />
+          </div>
+          <div class="form-control w-15">
+            <label for="state">Estado</label>
+            <input
+              type="text"
+              name="state"
+              formControlName="state"
+            />
+          </div>
+          <div class="form-control w-25">
+            <label for="city">Cidade</label>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              formControlName="city"
+            />
+          </div>
+          <div class="form-control w-25">
+            <label for="neighborhood">Bairro</label>
+            <input
+              type="text"
+              name="neighborhood"
+              id="neighborhood"
+              formControlName="neighborhood"
+            />
+          </div>
+          <div class="form-control w-70">
+            <label for="street">Logradouro</label>
+            <input
+              type="text"
+              name="street"
+              id="street"
+              formControlName="street"
+            />
+          </div>
+          <div class="form-control w-10">
+            <label for="number">Número</label>
+            <input
+              type="text"
+              name="number"
+              id="number"
+              maxlength="4"
+              placeholder="Sem Número"
+              formControlName="number"
+            />
+          </div>
+          <div class="form-control w-20">
+            <label for="complement">Complemento</label>
+            <input
+              type="text"
+              name="complement"
+              id="complement"
+              placeholder="Sem Complemento"
+              formControlName="complement"
+            />
+          </div>
+        </form>
+      </fieldset>
+    </ng-container>
+  </form>
+  <div class="actions">
+    <button
+      class="primary"
+      (click)="clickSave()"
+    >
+      <i class="fa-solid fa-floppy-disk"></i>
+      Criar
+    </button>
+  </div>
+</section>

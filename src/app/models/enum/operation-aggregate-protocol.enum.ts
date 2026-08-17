@@ -1,0 +1,6 @@
+export enum OperationAggregateProtocolEnum {
+  ADDITION = 'ADDITION',
+  SUBTRACTION = 'SUBTRACTION',
+  MULTIPLICATION = 'MULTIPLICATION',
+  DIVISION = 'DIVISION',
+}

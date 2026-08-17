@@ -1,0 +1,55 @@
+<app-loading [isLoading]="isLoading" />
+<div>
+  <ngx-file-drop
+    dropZoneLabel="Solte o(s) arquivo(s) aqui"
+    dropZoneClassName="mj-uploadDropZone"
+    contentClassName="mj-uploadContent"
+    browseBtnClassName="mj-uploadBrowseButon"
+    browseBtnLabel="Selecione o arquivo para upload"
+    [multiple]="true"
+    [disabled]="readonly"
+    (onFileDrop)="!readonly && dropped($event)"
+  >
+    <ng-template
+      ngx-file-drop-content-tmp
+      let-openFileSelector="openFileSelector"
+    >
+      <div
+        class="mj-uploadUpload"
+        *ngIf="!readonly"
+      >
+        <img
+          src="assets/images/svg/{{ isLoadingFile ? 'animated-upload' : 'document-input' }}.svg"
+        />
+        <button
+          type="button"
+          class="mj-uploadButton"
+          (click)="openFileSelector()"
+        >
+          Selecione o Arquivo para Upload
+        </button>
+        <span class="mj-uploadInfoText">Ou arraste e solte o arquivo aqui</span>
+      </div>
+      <div
+        class="mj-uploadFiles"
+        *ngIf="attachments && attachments.length > 0"
+      >
+        <div
+          class="mj-uploadFileItem"
+          *ngFor="let attachment of attachments"
+          (click)="showFile(attachment)"
+        >
+          <span>
+            <i class="fa-solid fa-paperclip"></i>
+            {{ attachment.name }}
+          </span>
+          <i
+            *ngIf="!readonly"
+            class="fa-solid fa-trash"
+            (click)="deleteFile(attachment)"
+          ></i>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-file-drop>
+</div>

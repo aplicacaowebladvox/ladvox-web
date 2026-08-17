@@ -1,0 +1,197 @@
+<header>
+  <h1 *ngIf="this.protocolTherapeuticPlanId">Respostas do protocolo</h1>
+  <h1 *ngIf="this.protocolId">Visualização do protocolo</h1>
+  <h2 *ngIf="!!protocol" class="protocol-name">Protocolo "({{ protocol.abbreviation }}) - {{ protocol.name }}"</h2>
+</header>
+<div
+  class="ql-editor"
+  *ngIf="!!protocol"
+  [innerHTML]="protocol.description"
+></div>
+
+<section *ngIf="protocol">
+  <table class="mj-table">
+    <tr class="head">
+      <td
+        class="head"
+        [rowSpan]="someAnswerTypeHasName(protocol) ? 2 : 1"
+      >
+        Pergunta
+      </td>
+      <ng-container *ngIf="someAnswerTypeHasName(protocol)">
+        <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+          <td class="head separator"></td>
+          <td
+            class="head"
+            [attr.colspan]="answerType.useRangeAnswer ? 1 : answerType.acceptableValues.length"
+          >
+            {{ answerType.name }}
+          </td>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="!someAnswerTypeHasName(protocol)">
+        <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+          <td class="head separator"></td>
+          <ng-container *ngIf="answerType.useRangeAnswer">
+            <td class="rangevalue">
+              <div>
+                <span
+                  *ngFor="
+                    let acceptableValue of answerType.acceptableValues;
+                    index as acceptableValueIndex
+                  "
+                >
+                  {{ acceptableValue.presentation || acceptableValue.value }}
+                </span>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="!answerType.useRangeAnswer">
+            <td
+              class="head center"
+              *ngFor="
+                let acceptableValue of answerType.acceptableValues;
+                index as acceptableValueIndex
+              "
+            >
+              {{ acceptableValue.presentation || acceptableValue.value }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+    <tr
+      class="head min-text-size"
+      *ngIf="someAnswerTypeHasName(protocol)"
+    >
+      <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+        <td class="head separator"></td>
+        <ng-container *ngIf="answerType.useRangeAnswer">
+          <td class="rangevalue">
+            <div>
+              <span
+                *ngFor="
+                  let acceptableValue of answerType.acceptableValues;
+                  index as acceptableValueIndex
+                "
+              >
+                {{ acceptableValue.presentation || acceptableValue.value }}
+              </span>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container *ngIf="!answerType.useRangeAnswer">
+          <ng-container
+            *ngFor="
+              let acceptableValue of answerType.acceptableValues;
+              index as acceptableValueIndex
+            "
+          >
+            <td class="head center">
+              {{ acceptableValue.presentation || acceptableValue.value }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+    <tbody>
+      <ng-container *ngFor="let question of protocol.questions; index as questionIndex">
+        <tr>
+          <td>{{ question.question }}</td>
+
+          <ng-container *ngFor="let answerType of protocol.answersType; index as answerTypeIndex">
+            <td class="separator"></td>
+            <ng-container *ngIf="!answerType.useRangeAnswer">
+              <ng-container
+                *ngFor="
+                  let acceptableValue of answerType.acceptableValues;
+                  index as acceptableValueIndex
+                "
+              >
+                <td class="button-content">
+                  <span>
+                    <button
+                      [disabled]="!isEditing"
+                      [class.active]="isSelected(question, answerType, acceptableValue.value)"
+                      (click)="clickSelect(question, answerType, acceptableValue.value)"
+                    >
+                      {{ acceptableValue.presentation || acceptableValue.value }}
+                    </button>
+                  </span>
+                </td>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="answerType.useRangeAnswer">
+              <td>
+                <span>
+                  <input
+                    [ngModel]="value(question, answerType)"
+                    (ngModelChange)="changeValue(question, answerType, $event)"
+                    [disabled]="!isEditing"
+                    type="range"
+                    class="slider"
+                    name=""
+                    id=""
+                    [min]="answerType.acceptableValues[0].value"
+                    [max]="
+                      answerType.acceptableValues[answerType.acceptableValues.length - 1].value
+                    "
+                    [step]="0.25"
+                  />
+                </span>
+              </td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>
+<ng-container *notHasRole="'Paciente'">
+  <section style="margin-bottom: 12px">
+    <ngx-skeleton-loader
+      *ngIf="loadingCalculate"
+      [theme]="{ height: '140px' }"
+    />
+    <app-protocol-result
+      *ngIf="protocolTherapeuticPlanId || (protocolId && protocolResultAnswers)"
+      [protocolTherapeuticPlanId]="protocolTherapeuticPlanId"
+      [protocolId]="protocolId"
+      [answers]="protocolResultAnswers"
+    ></app-protocol-result>
+  </section>
+</ng-container>
+<section class="forms">
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasRole="'Paciente'">
+      <button
+        *ngIf="isEditing && !!protocolTherapeuticPlanId"
+        class="primary"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!!protocolId">
+      <button
+        class="secondary"
+        (click)="clickCalculate()"
+      >
+        <i class="fa-solid fa-calculator"></i>
+        {{
+          !!protocolResultAnswers && protocolResultAnswers.length > 0 ? 'Recalcular' : 'Calcular'
+        }}
+        respostas
+      </button>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+
+.actions {
+  display: flex;
+  margin-bottom: 8px;
+  > div {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    &.onright {
+      justify-content: flex-end;
+    }
+    &.oncenter {
+      justify-content: center;
+    }
+  }
+}

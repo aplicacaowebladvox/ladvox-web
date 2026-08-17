@@ -1,0 +1,90 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Usuário</h1>
+</header>
+<section class="forms">
+  <span class="title"> {{ id ? id + '' : 'Novo' }} - Usuário</span>
+  <form
+    *ngIf="form && !!rolesAvailablesSelectOptions"
+    [formGroup]="form"
+  >
+    <div class="form-control w-100">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control w-25">
+      <label for="birthDate">Data de nascimento</label>
+      <input
+        type="date"
+        id="birthDate"
+        name="birthDate"
+        formControlName="birthDate"
+      />
+    </div>
+    <div class="form-control w-25">
+      <label for="document">CPF</label>
+      <input
+        type="text"
+        mask="000.000.000-00"
+        formControlName="document"
+      />
+    </div>
+    <div class="form-control w-25">
+      <label for="showOnLandingPage"> Mostrar na Landing Page? </label>
+      <label for="showOnLandingPage">
+        <input
+          type="checkbox"
+          id="showOnLandingPage"
+          name="showOnLandingPage"
+          formControlName="showOnLandingPage"
+        />
+      </label>
+    </div>
+    <div class="form-control w-25"></div>
+    <div class="form-control w-100">
+      <label for="papers">Papéis</label>
+      <p-multiSelect
+        [options]="rolesAvailablesSelectOptions"
+        formControlName="roleIds"
+        optionLabel="name"
+        optionValue="id"
+        display="chip"
+        [showClear]="true"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <ng-container *hasPermission="'controle-acesso.usuarios.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!id && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'controle-acesso.usuarios.form.new'">
+      <button
+        class="primary"
+        *ngIf="!id"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,9 @@
+@defer {
+  <app-file-upload
+    [readonly]="!editing"
+    [entityId]="therapeuticPlanId"
+    [store]="attachmentStore"
+  ></app-file-upload>
+} @placeholder (minimum 1000ms) {
+  <ngx-skeleton-loader [theme]="{ height: '260px' }" />
+}

@@ -1,0 +1,65 @@
+<main>
+  <div>
+    <section>
+      <img
+        src="/assets/images/ladvox-logo-withlegend.png"
+        alt=""
+        srcset=""
+      />
+    </section>
+    <section>
+      <h6>Bem-vindo, faça seu login</h6>
+    </section>
+    <section>
+      <form
+        [formGroup]="form"
+        (keydown.enter)="$event.preventDefault()"
+      >
+        <div class="form-control open">
+          <label for="login">CPF</label>
+          <input
+            type="text"
+            id="login"
+            name="login"
+            formControlName="login"
+            mask="000.000.000-00||AAAAAAAAAAAAAAAAAAAAAAAAA"
+          />
+        </div>
+        <div class="form-control open">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+          />
+        </div>
+        <button
+          class="primary"
+          id="btnLogin"
+          name="btnLogin"
+          [disabled]="isLoading || (isFormTouched && !isFormValid)"
+          (click)="login()"
+        >
+          <i
+            *ngIf="isLoading"
+            class="fa-solid fa-spinner fa-spin-pulse"
+          ></i>
+          <ng-container *ngIf="!isLoading"> Entrar </ng-container>
+        </button>
+      </form>
+    </section>
+    <section id="other-links">
+      <a
+        class="primary"
+        (click)="forgotPassword()"
+        >Seu primeiro login ou esqueceu sua senha?</a
+      >
+      <a
+        class="info"
+        (click)="back()"
+        >Voltar</a
+      >
+    </section>
+  </div>
+</main>

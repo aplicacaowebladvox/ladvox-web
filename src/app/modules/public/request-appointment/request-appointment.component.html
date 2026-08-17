@@ -1,0 +1,61 @@
+<div class="content">
+  <section class="forms">
+    <form
+      *ngIf="form"
+      [formGroup]="form"
+    >
+      <div class="form-control w-100">
+        <label for="name">Seu nome</label>
+        <input
+          type="text"
+          name="name"
+          formControlName="name"
+        />
+      </div>
+      <div class="form-control w-50">
+        <label for="email">Um e-mail para contato</label>
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form-control w-25">
+        <label for="phone1">Um telefone</label>
+        <input
+          type="text"
+          name="phone1"
+          formControlName="phone1"
+          mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+        />
+      </div>
+      <div class="form-control w-25">
+        <label for="phone2">Outro telefone</label>
+        <input
+          type="text"
+          name="phone2"
+          formControlName="phone2"
+          mask="(00) 00000-0000|(00) 0000-0000|00000-0000|0000-0000"
+        />
+      </div>
+      <div class="form-control w-100">
+        <label for="problemDescription">Descreva o seu problema</label>
+        <p-editor
+          id="requestDescription"
+          name="requestDescription"
+          formControlName="problemDescription"
+          [style]="{ height: '160px' }"
+        />
+      </div>
+    </form>
+    <div class="actions">
+      <button
+        class="primary"
+        (click)="clickRequest()"
+      >
+        <i class="fa-solid fa-paper-plane"></i>
+        Solicitar
+      </button>
+    </div>
+  </section>
+</div>

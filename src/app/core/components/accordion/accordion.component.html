@@ -1,0 +1,51 @@
+<div
+  class="accordion"
+  [class]="(isAccordionGroup ? 'accordion-group' : '') + ' ' + accordionClassString"
+>
+  <header>
+    <div class="accordion-title">
+      <span
+        id="title"
+        (click)="isOppened = !isOppened"
+        >{{ title }}</span
+      >
+      <span id="actions">
+        <ng-container *ngFor="let action of actions">
+          <button
+            *ngIf="action.isVisible(componentId)"
+            [class]="action.customClass"
+            (click)="action.click(componentId)"
+          >
+            <i [class]="action.iconClass"></i>
+            <span>{{ action.tooltip }}</span>
+          </button>
+        </ng-container>
+        <button
+          *ngIf="isOppened"
+          (click)="isOppened = !isOppened"
+        >
+          <i class="fa-solid fa-chevron-up"></i>
+          <span>Fechar</span>
+        </button>
+        <button
+          *ngIf="!isOppened"
+          (click)="isOppened = !isOppened"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+          <span>Abrir</span>
+        </button>
+      </span>
+    </div>
+    <div
+      class="accordion-title-optional-body"
+      id="accordionTitleOptionalBody"
+      [class.active]="!!accordionTitleOptionalBody"
+    ></div>
+  </header>
+  <div
+    class="accordion-body"
+    [class.active]="!!body && isOppened"
+  >
+    <ng-content [select]="body"></ng-content>
+  </div>
+</div>

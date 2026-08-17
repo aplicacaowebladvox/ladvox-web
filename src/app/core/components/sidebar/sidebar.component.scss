@@ -1,0 +1,120 @@
+@import './../../../../assets/scss/vars';
+
+aside {
+  width: 344px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background-color: $white;
+  transition: all $animation-timing ease-in-out;
+  position: fixed;
+  z-index: 1;
+  max-height: 100vh;
+
+  > header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    -webkit-animation: scale-down-center 0.4s ease-in-out;
+    animation: scale-down-center 0.4s ease-in-out;
+
+    > a {
+      width: 100%;
+      img {
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+
+  > nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 100%;
+    flex: 1;
+    > ul {
+      display: flex;
+      flex-direction: column;
+    }
+    overflow: auto;
+  }
+
+  #collapse-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+    fa-icon {
+      animation: rotate-right $animation-timing ease-in-out forwards;
+    }
+  }
+
+  > hr {
+    width: 100%;
+    background-color: black;
+    border-width: 0px;
+    height: 2px;
+    border-radius: 8px;
+  }
+
+  > footer {
+    display: flex;
+    flex-direction: column;
+    div#user-info {
+      display: flex;
+      padding: 12px;
+      align-items: center;
+      column-gap: 12px;
+      justify-content: space-evenly;
+      #data {
+        display: flex;
+        flex-direction: column;
+        #paper {
+          align-self: flex-end;
+        }
+      }
+    }
+    > a {
+      align-self: center;
+    }
+  }
+  border-right: 2px solid black;
+
+  &.collapsed {
+    width: 60px;
+    // width: 100px;
+    align-items: center;
+    > header {
+      > img {
+        width: auto;
+        height: 60px;
+        cursor: pointer;
+      }
+    }
+
+    > div#collapse-button {
+      > span {
+        display: none;
+      }
+    }
+
+    > footer {
+      > div#user-info {
+        p-avatar {
+          font: inherit;
+        }
+        width: 60px;
+        > div#data {
+          display: none;
+        }
+      }
+    }
+  }
+}

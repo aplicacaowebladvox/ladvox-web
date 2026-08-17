@@ -1,0 +1,51 @@
+<header>
+  <h1 *ngIf="greetings">{{ greetings }}</h1>
+  <p>Seja bem vindo(a), veja aqui os seus questionários</p>
+</header>
+<section class="filters">
+  <span class="title">Filtros</span>
+  <form
+    (keydown.enter)="$event.preventDefault()"
+    [formGroup]="form"
+  >
+    <div class="form-control w-25">
+      <label for="notAnswered"> Aguardando resposta? </label>
+      <label for="notAnswered">
+        <input
+          type="checkbox"
+          id="notAnswered"
+          name="notAnswered"
+          formControlName="notAnswered"
+        />
+      </label>
+    </div>
+    <div class="form-control w-25">
+      <label for="answered"> Respondidos? </label>
+      <label for="answered">
+        <input
+          type="checkbox"
+          id="answered"
+          name="answered"
+          formControlName="answered"
+        />
+      </label>
+    </div>
+    <div class="form-control w-50">
+      <label for="orderBy">Ordenar por</label>
+      <p-dropdown
+        inputId="orderBy"
+        [options]="orderBySelectOptions"
+        optionValue="id"
+        optionLabel="name"
+        formControlName="orderBy"
+        [filter]="true"
+      />
+    </div>
+  </form>
+</section>
+<section>
+  <app-card-table [cardTableConfig]="myProtocolsCardTableConfig">
+    <app-action-card-table [config]="viewAnswerCardTableActionConfig"></app-action-card-table>
+    <app-action-card-table [config]="answerCardTableActionConfig"></app-action-card-table>
+  </app-card-table>
+</section>

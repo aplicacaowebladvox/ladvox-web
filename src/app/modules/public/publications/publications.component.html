@@ -1,0 +1,32 @@
+<div class="content">
+  @defer {
+    <section
+      class="forms"
+      *ngFor="let publication of publications"
+    >
+      <span class="title">Publicação</span>
+      <h4>{{ publication.title }}</h4>
+      <ng-container>
+        <p>
+          <em>
+            <a
+              *ngIf="isLink(publication.bibliographicReference)"
+              [href]="publication.bibliographicReference"
+              target="_blank"
+              >{{ publication.bibliographicReference }}</a
+            >
+            <ng-container *ngIf="!isLink(publication.bibliographicReference)">
+              {{ publication.bibliographicReference }}
+            </ng-container>
+          </em>
+        </p>
+      </ng-container>
+      <div [innerHTML]="publication.publicationAbstract"></div>
+    </section>
+  } @placeholder (minimum 1000ms) {
+    <ngx-skeleton-loader
+      count="3"
+      [theme]="{ width: '100%', height: '120px', padding: '12px' }"
+    />
+  }
+</div>

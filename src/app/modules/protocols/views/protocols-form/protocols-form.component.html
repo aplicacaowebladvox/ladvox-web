@@ -1,0 +1,108 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Protocolos</h1>
+</header>
+<section class="forms">
+  <span
+    class="title"
+    *ngIf="!!id"
+    >Protocolo - {{ id }}</span
+  >
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+  >
+    <div class="form-control w-60">
+      <label for="procolName">Nome</label>
+      <input
+        type="text"
+        name="procolName"
+        id="procolName"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-control w-10">
+      <label for="abbreviation">Abreviação</label>
+      <input
+        type="text"
+        name="abbreviation"
+        id="abbreviation"
+        formControlName="abbreviation"
+      />
+    </div>
+    <div class="form-control-group w-30">
+      <label for="initialValidity">Validade de</label>
+      <div>
+        <input
+          type="date"
+          id="initialValidity"
+          name="initialValidity"
+          formControlName="initialValidity"
+        />
+        <label for="finalValidity">à</label>
+        <input
+          type="date"
+          id="finalValidity"
+          name="finalValidity"
+          formControlName="finalValidity"
+        />
+      </div>
+    </div>
+    <div class="form-control w-100">
+      <label for="description">Descrição</label>
+      <p-editor
+        id="description"
+        name="description"
+        [style]="{ height: '160px' }"
+        formControlName="description"
+        [readonly]="form.disabled"
+      />
+    </div>
+  </form>
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+    <button
+      class="secondary"
+      *ngIf="!!id"
+      (click)="clickQuestions()"
+    >
+      <i class="fa-solid fa-file-circle-question"></i>
+      Perguntas
+    </button>
+    <ng-container *hasPermission="'protocolo.protocolo.form.new'">
+      <button
+        class="primary"
+        *ngIf="!id"
+        (click)="clickCreate()"
+      >
+        <i class="fa-solid fa-circle-plus"></i>
+        Criar
+      </button>
+    </ng-container>
+    <ng-container *hasPermission="'protocolo.protocolo.form.edit'">
+      <button
+        class="primary"
+        *ngIf="!!id && editing"
+        (click)="clickSave()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+      <button
+        class="primary"
+        *ngIf="!!id && !editing"
+        (click)="clickEnableEdit()"
+      >
+        <i class="fa-solid fa-pencil"></i>
+        Editar
+      </button>
+    </ng-container>
+  </div>
+</section>

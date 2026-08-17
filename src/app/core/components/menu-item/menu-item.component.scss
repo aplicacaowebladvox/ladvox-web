@@ -1,0 +1,137 @@
+@import './../../../../assets/scss/vars';
+
+app-menu-item {
+  width: 100%;
+}
+
+li.menu-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  transition: 0.5s;
+
+  > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    > i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      width: 32px;
+      height: 32px;
+      font-size: 24px;
+      &:hover {
+        color: $primary-s30;
+      }
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding-left: 12px;
+      span {
+        &#actions {
+          display: flex;
+          column-gap: 6px;
+        }
+        i {
+          &:hover {
+            color: $secondary;
+          }
+        }
+      }
+    }
+  }
+  > ul {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-left: 12px;
+    li {
+      &:hover {
+        background-color: $primary-t80;
+      }
+    }
+  }
+  &.active {
+    > ul {
+      display: flex;
+    }
+  }
+
+  &.active,
+  &:hover {
+    background-color: $black-t90;
+    cursor: pointer;
+  }
+
+  &.sub-menu {
+    > div {
+      > i {
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &.collapsed {
+    // position: absolute;
+    overflow-x: hidden;
+    margin-bottom: 0px;
+    > div {
+      overflow-x: hidden;
+      justify-content: center;
+      > div {
+        display: none;
+        > #actions {
+          > fa-icon {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &.active {
+      background-color: unset;
+      > ul {
+        display: none;
+      }
+    }
+
+    &.sub-menu,
+    &:hover {
+      overflow-x: hidden;
+      min-width: 80px;
+      width: fit-content;
+
+      position: relative;
+      // margin-left: 90px;
+      margin-left: 8em;
+      display: block;
+
+      &.sub-menu {
+        margin-left: 0px;
+        width: auto;
+      }
+      > div {
+        > div {
+          display: flex;
+        }
+      }
+      background-color: $black-t90;
+      > ul {
+        display: flex;
+      }
+    }
+  }
+}

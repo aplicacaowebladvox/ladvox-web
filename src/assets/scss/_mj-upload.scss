@@ -1,0 +1,97 @@
+@import './vars';
+
+.mj-uploadDropZone {
+  background-color: transparent;
+  width: 100%;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $primary;
+  border-radius: 12px;
+  padding: 8px;
+  &.ngx-file-drop__drop-zone--over {
+    background-color: $primary-t90 !important;
+  }
+
+  .mj-uploadContent {
+    display: flex;
+    gap: 4px;
+    &.vertical {
+      flex-direction: column;
+    }
+    .mj-uploadUpload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .mj-uploadButton {
+        font: $heading4;
+        border-width: 0;
+        color: $primary;
+        background-color: transparent;
+        :hover {
+          background-color: transparent;
+          color: $primary-t10;
+        }
+      }
+      .mj-uploadInfoText {
+        color: $secondary;
+        :hover {
+          color: $secondary-t10;
+        }
+      }
+    }
+    .mj-uploadFiles {
+      &:empty {
+        display: none;
+      }
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      .mj-uploadFileItem {
+        display: flex;
+        column-gap: 4px;
+        flex-direction: row;
+        width: calc(50% - 4px);
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 8px;
+        justify-content: space-between;
+        padding: 4px;
+        align-items: center;
+        color: $white;
+        background-color: $primary;
+        border-color: $primary;
+        height: inherit;
+        &:hover {
+          background-color: $primary-t10;
+          border-color: $primary-t10;
+        }
+        > span:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        > i:hover {
+          color: $danger;
+          cursor: pointer;
+        }
+      }
+
+      &.linha-1-item {
+        .mj-uploadFileItem {
+          width: 100%;
+        }
+      }
+      &.linha-3-items {
+        .mj-uploadFileItem {
+          width: calc(33% - 4px);
+        }
+      }
+      &.linha-4-items {
+        .mj-uploadFileItem {
+          width: calc(25% - 4px);
+        }
+      }
+    }
+  }
+}

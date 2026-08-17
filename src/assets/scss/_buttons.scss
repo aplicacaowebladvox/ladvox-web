@@ -1,0 +1,180 @@
+button,
+.button {
+  width: fit-content;
+  min-height: 48px;
+  min-width: 48px;
+  border-radius: 8px;
+  border-width: 3px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 8px;
+  font: $text;
+  font-weight: 800;
+  color: $black;
+  border-color: $black;
+  background-color: transparent;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
+
+  > i,
+  > svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: $black-t90;
+  }
+
+  &.loading,
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $black-t90;
+  }
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline-width: 2px;
+    outline-color: $primary;
+    outline-offset: 0px;
+    outline-style: solid;
+  }
+
+  &.primary {
+    color: $white;
+    background-color: $primary;
+    border-color: $primary;
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline-color: $primary;
+    }
+    &:hover {
+      background-color: $primary-t10;
+      border-color: $primary-t10;
+    }
+    &:disabled {
+      background-color: $black-t40;
+      color: $black-t80;
+      border-color: $primary;
+      &:hover {
+        background-color: $black-t40;
+        color: $black-t80;
+        border-color: $primary;
+      }
+    }
+  }
+
+  &.warn,
+  &.warning {
+    background-color: $warn;
+    border-color: $warn;
+    color: $white;
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline-color: $warn;
+    }
+    &:hover {
+      background-color: $warn-t10;
+      border-color: $warn-t10;
+    }
+    &:disabled {
+      background-color: $black-t40;
+      color: $black-t80;
+      border-color: $warn;
+      &:hover {
+        background-color: $black-t40;
+        color: $black-t80;
+        border-color: $warn;
+      }
+    }
+  }
+
+  &.success {
+    background-color: $success;
+    border-color: $success;
+    color: $white;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline-color: $success;
+    }
+
+    &:hover {
+      background-color: $success-t10;
+      border-color: $success-t10;
+    }
+    &:disabled {
+      background-color: $black-t40;
+      color: $success-t80;
+      border-color: $success;
+      &:hover {
+        background-color: $success-t40;
+        color: $success-t80;
+        border-color: $success;
+      }
+    }
+  }
+
+  &.secundary,
+  &.secondary {
+    background-color: $secondary;
+    border-color: $secondary;
+    color: $white;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline-color: $secondary;
+    }
+
+    &:hover {
+      background-color: $secondary-t10;
+      border-color: $secondary-t10;
+    }
+    &:disabled {
+      background-color: $black-t40;
+      color: $secondary-t80;
+      border-color: $secondary;
+      &:hover {
+        background-color: $secondary-t40;
+        color: $secondary-t80;
+        border-color: $secondary;
+      }
+    }
+  }
+
+  &.danger {
+    background-color: $danger;
+    border-color: $danger;
+    color: $white;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline-color: $danger;
+    }
+
+    &:hover {
+      background-color: $danger-t10;
+      border-color: $danger-t10;
+    }
+    &:disabled {
+      background-color: $black-t40;
+      color: $danger-t80;
+      border-color: $danger;
+      &:hover {
+        background-color: $danger-t40;
+        color: $danger-t80;
+        border-color: $danger;
+      }
+    }
+  }
+}

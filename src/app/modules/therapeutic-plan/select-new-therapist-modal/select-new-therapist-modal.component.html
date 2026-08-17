@@ -1,0 +1,23 @@
+<div class="choose-therapist-container">
+  <ng-container *ngFor="let therapist of therapists">
+    <div
+      [class.current-editor]="therapist.id == data.currentEditorId"
+      (click)="therapist.id != data.currentEditorId && selectTherapist(therapist.id)"
+    >
+      <p-avatar
+        [image]="therapist.extraAttribute ? therapist.extraAttribute : undefined"
+        [label]="therapist.extraAttribute ? undefined : generateInitials(therapist.name)"
+        size="xlarge"
+        shape="circle"
+      />
+      <div id="data">
+        <span class="name">{{ therapist.name }}</span>
+        <span
+          *ngIf="therapist.id == data.currentEditorId"
+          class="current-editor"
+          ><i>Atual editor</i></span
+        >
+      </div>
+    </div>
+  </ng-container>
+</div>

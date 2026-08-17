@@ -1,0 +1,55 @@
+<header>
+  <h1>Plano terapêutico</h1>
+  <p *ngIf="therapeuticPlanModel">
+    Paciente "{{ therapeuticPlanModel.medicalAppointmentPatientName }}" do planejamento "{{
+      therapeuticPlanModel.medicalAppointmentMedicalAppointmentPlanningName
+    }}"
+  </p>
+</header>
+<section class="forms">
+  <div class="actions">
+    <button
+      class="warn"
+      style="margin-right: auto"
+      (click)="clickBack()"
+    >
+      <i class="fa-solid fa-reply"></i>
+      Voltar
+    </button>
+  </div>
+</section>
+@defer {
+  <app-tab
+    *ngIf="tabs"
+    [items]="tabs"
+    (onTabChange)="onTabChange($event)"
+  ></app-tab>
+} @placeholder (minimum 1000ms) {
+  <ngx-skeleton-loader
+    count="4"
+    [theme]="{ 'width': '100px', 'height': '43px', 'margin-right': '12px' }"
+  />
+}
+
+<ng-container *ngIf="tabs">
+  <app-therapeutic-plan-protocols
+    [therapeuticPlanId]="id!"
+    [editing]="editing == true"
+    *ngIf="tabs[0].isActive"
+  ></app-therapeutic-plan-protocols>
+  <app-therapeutic-plan-text
+    [therapeuticPlanId]="id!"
+    [editing]="editing == true"
+    [style]="{ display: tabs[1].isActive ? 'block' : 'none' }"
+  ></app-therapeutic-plan-text>
+  <app-therapeutic-plan-attachments
+    [therapeuticPlanId]="id!"
+    [editing]="editing == true"
+    *ngIf="tabs[2].isActive"
+  ></app-therapeutic-plan-attachments>
+  <app-therapeutic-plan-comments
+    [therapeuticPlanId]="id!"
+    [editing]="editing == true"
+    *ngIf="tabs[3].isActive"
+  ></app-therapeutic-plan-comments>
+</ng-container>

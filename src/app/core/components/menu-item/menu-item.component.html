@@ -1,0 +1,40 @@
+<li
+  *ngIf="item"
+  class="menu-item"
+  [class]="innerClass"
+  [class.active]="item.isOpenned"
+  [class.collapsed]="collapsed"
+>
+  <div (click)="handleClick()">
+    <i [class]="item.iconClass"></i>
+    <div>
+      <span>{{ item.name }}</span>
+      <span id="actions">
+        <fa-icon
+          *ngIf="item.subMenus && item.subMenus.length > 0"
+          [icon]="item.isOpenned ? faChevronUp : faChevronDown"
+        ></fa-icon>
+        <span
+          *ngIf="item.description"
+          id="description"
+        >
+          <fa-icon
+            [icon]="faQuestionCircle"
+            [pTooltip]="item.description"
+            [tooltipStyleClass]="'tooltip-custom'"
+          ></fa-icon>
+        </span>
+      </span>
+    </div>
+  </div>
+  <ul *ngIf="item.subMenus && item.subMenus.length > 0">
+    <ng-container *ngFor="let subItem of item.subMenus; index as i">
+      <app-menu-item
+        [innerClass]="'sub-menu'"
+        [item]="subItem"
+        [index]="i + 1"
+        [collapsed]="collapsed"
+      ></app-menu-item>
+    </ng-container>
+  </ul>
+</li>

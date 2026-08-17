@@ -1,0 +1,131 @@
+<app-loading [isLoading]="isLoading" />
+<header>
+  <h1>Protocolos</h1>
+  <p>Perguntas</p>
+</header>
+
+<app-tab
+  *ngIf="form && tabItems"
+  [items]="tabItems"
+  (onTabChange)="onTabChange($event)"
+></app-tab>
+
+<div
+  class="actions"
+  *ngIf="form"
+>
+  <div class="onleft">
+    <button
+      class="warn"
+      (click)="clickBack()"
+    >
+      Voltar
+    </button>
+  </div>
+  <div class="onright">
+    <ng-container *hasPermission="'protocolo.protocolo.form.edit'">
+      <button
+        *ngIf="editing"
+        class="success"
+        (click)="clickSave()"
+      >
+        Salvar
+      </button>
+    </ng-container>
+    <button
+      class="success"
+      *ngIf="editing && form.getRawValue().nextStepIsEnable"
+      (click)="clickContinue()"
+    >
+      Continuar
+    </button>
+  </div>
+</div>
+
+<p-splitter panelStyleClass="content-splitter">
+  <ng-template
+    pTemplate
+    *ngIf="editing"
+  >
+    <form
+      *ngIf="form && editing"
+      [formGroup]="form.getRawValue().edittingQuestionProtocolForm"
+      class="p-splitter-left"
+      (keyup.enter)="clickAddQuestion()"
+    >
+      <div class="form-control">
+        <label for="question">Pergunta</label>
+        <input
+          type="text"
+          id="question"
+          name="question"
+          formControlName="question"
+        />
+      </div>
+      <div class="form-control">
+        <label for="abbreviation">Abreviação</label>
+        <input
+          type="text"
+          id="abbreviation"
+          name="abbreviation"
+          formControlName="abbreviation"
+          maxlength="5"
+        />
+      </div>
+      <button
+        type="button"
+        class="success"
+        (click)="clickAddQuestion()"
+      >
+        Adicionar
+      </button>
+    </form>
+  </ng-template>
+  <ng-template pTemplate>
+    <p-orderList
+      *ngIf="form && questionsForm"
+      class="p-splitter-right"
+      [value]="this.questionsForm"
+      [listStyle]="{ 'max-height': '30rem' }"
+      header="Lista de perguntas do protocolo"
+      [dragdrop]="editing"
+      id="questionsOrderList"
+      (onReorder)="onChangeQuestionOrder()"
+    >
+      <ng-template
+        let-questionForm
+        pTemplate="item"
+      >
+        <div class="order-list-item">
+          <div>
+            <span *ngIf="!!questionForm.getRawValue().abbreviation"
+              >({{ questionForm.getRawValue().abbreviation }}) -
+              {{
+                ' (' +
+                  questionForm.getRawValue().sequence +
+                  ') -' +
+                  questionForm.getRawValue().question
+              }}</span
+            >
+            <span *ngIf="!questionForm.getRawValue().abbreviation">{{
+              ' (' +
+                questionForm.getRawValue().sequence +
+                ') -' +
+                questionForm.getRawValue().question
+            }}</span>
+          </div>
+          <div *ngIf="editing">
+            <i
+              class="fa-solid fa-pencil"
+              (click)="clickEditQuestionOrderListItem(questionForm)"
+            ></i>
+            <i
+              class="fa-solid fa-trash-can"
+              (click)="clickRemoveQuestionOrderListItem(questionForm)"
+            ></i>
+          </div>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </ng-template>
+</p-splitter>

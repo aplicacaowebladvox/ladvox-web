@@ -1,0 +1,46 @@
+a {
+  cursor: pointer;
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline-width: 2px;
+    outline-color: $primary;
+    outline-offset: 0px;
+    outline-style: solid;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.primary {
+    color: $primary-s30;
+    &:hover {
+      color: $primary-t10;
+      &:disabled,
+      &.disabled {
+        color: $primary-s30;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &.info {
+    color: $info-s20;
+    &:hover {
+      color: $info-t10;
+      &:disabled,
+      &.disabled {
+        color: $info-s30;
+        text-decoration: none;
+      }
+    }
+  }
+}

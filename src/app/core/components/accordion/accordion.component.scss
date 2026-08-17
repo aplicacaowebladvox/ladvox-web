@@ -1,0 +1,107 @@
+@import '../../../../assets/scss/vars';
+
+div {
+  &.accordion {
+    width: 100%;
+    padding: 12px;
+    background-color: $white;
+    border-radius: 8px;
+    > header {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      > div {
+        &.accordion-title {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          > span {
+            &#title {
+              font: $heading3;
+              &:hover {
+                cursor: pointer;
+                color: $primary;
+              }
+            }
+            &#actions {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              column-gap: 4px;
+
+              > button {
+                border-width: 0px;
+                width: fit-content;
+                height: auto;
+                min-width: 24px;
+                min-height: 24px;
+                padding: 8px;
+                font-size: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                column-gap: 0px;
+
+                > i,
+                > svg {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 24px;
+                  height: 24px;
+                  font-size: 20px;
+                }
+
+                &:hover {
+                  column-gap: 4px;
+                  font-size: $font-size * 1px;
+                  > i,
+                  > svg {
+                    width: 24px;
+                    height: 24px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.accordion-title-optional-body {
+          display: none;
+          &.active {
+            display: block;
+          }
+        }
+      }
+    }
+    > div.accordion-body {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+    margin-bottom: 8px;
+    &.accordion-group {
+      border-width: 2px;
+      border-color: $black;
+      border-style: solid;
+      padding: 6px;
+      > header {
+        > div.accordion-title {
+          > span {
+            &#title {
+              font: $heading4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.accordion {
+  &.accordion-group.invalid,
+  &.invalid {
+    border-color: $danger;
+  }
+}

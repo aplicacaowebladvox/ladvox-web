@@ -1,0 +1,23 @@
+<div class="avatar-container">
+  <div
+    class="image-container"
+    *ngIf="showBase64; else placeholder"
+    [ngClass]="{ 'box-shadow-avatar': !!showBase64 }"
+    [ngStyle]="{ backgroundImage: 'url(' + showBase64 + ')' }"
+  ></div>
+
+  <ng-template #placeholder>
+    <div class="image-container avatar-placeholder">{{ initials }}</div>
+  </ng-template>
+  <label for="avatar-input-file">
+    <div class="icon-wrapper">
+      <input
+        type="file"
+        id="avatar-input-file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
+      <i class="fa-solid fa-pencil icon"></i>
+    </div>
+  </label>
+</div>
