@@ -51,7 +51,11 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.authService
       .login(LoginUserModelOfForm(this.form))
-      .pipe(takeUntilDestroyed(this.destroyRef), alertApiError())
+      .pipe(
+        finalize(() => (this.isLoading = false)),
+        takeUntilDestroyed(this.destroyRef),
+        alertApiError()
+      )
       .subscribe({
         next: () => {
           this.userStore
