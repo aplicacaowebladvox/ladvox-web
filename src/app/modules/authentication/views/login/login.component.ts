@@ -70,7 +70,11 @@ export class LoginComponent implements OnInit {
                   choice.password = LoginUserModelOfForm(this.form).password;
                   this.authService
                     .chooseViewMode(choice)
-                    .pipe(alertApiError())
+                    .pipe(
+                      finalize(() => (this.isLoading = false)),
+                      takeUntilDestroyed(this.destroyRef),
+                      alertApiError()
+                    )
                     .subscribe({
                       next: () => {
                         this.systemConfigStore
