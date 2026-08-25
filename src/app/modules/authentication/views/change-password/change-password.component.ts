@@ -78,7 +78,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordPollices(): string {
     return `<ul>
   <li>Não pode conter três caracteres consecutivos iguais.</li>
-  <li>Deve ter entre 6 e 10 caracteres.</li>
+  <li>Deve ter entre 6 e 15 caracteres.</li>
   <li>Deve conter pelo menos uma letra minúscula.</li>
   <li>Deve conter pelo menos uma letra maiúscula.</li>
   <li>Deve conter pelo menos um dígito numérico.</li>
